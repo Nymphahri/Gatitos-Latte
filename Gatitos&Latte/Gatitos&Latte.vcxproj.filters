@@ -19,4 +19,43 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Presentacion" />
+    <Filter Include="Aplicacion" />
+    <Filter Include="Dominio" />
+    <Filter Include="Datos" />
+    <Filter Include="Estructuras" />
+    <Filter Include="Algoritmos" />
+    <Filter Include="Documentacion" />
+    <Filter Include="Pruebas" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>Documentacion</Filter>
+    </None>
+    <None Include="..\docs\arquitectura.md">
+      <Filter>Documentacion</Filter>
+    </None>
+    <None Include="..\tests\README.md">
+      <Filter>Pruebas</Filter>
+    </None>
+    <None Include="src\Presentacion\README.md">
+      <Filter>Presentacion</Filter>
+    </None>
+    <None Include="src\Aplicacion\README.md">
+      <Filter>Aplicacion</Filter>
+    </None>
+    <None Include="src\Dominio\README.md">
+      <Filter>Dominio</Filter>
+    </None>
+    <None Include="src\Datos\README.md">
+      <Filter>Datos</Filter>
+    </None>
+    <None Include="src\Estructuras\README.md">
+      <Filter>Estructuras</Filter>
+    </None>
+    <None Include="src\Algoritmos\README.md">
+      <Filter>Algoritmos</Filter>
+    </None>
+  </ItemGroup>
 </Project>
