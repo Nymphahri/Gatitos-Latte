@@ -150,9 +150,6 @@
   </ImportGroup>
   <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="..\docs\arquitectura.md" />
-    <None Include="..\tests\README.md" />
-    <None Include="src\Algoritmos\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Dominio\Producto.cpp" />
@@ -189,5 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Presentacion\MenuCatalogo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Documentos\Diseno-tecnico.md" />
   </ItemGroup>
 </Project>

@@ -4,5 +4,4 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="Gatitos&amp;Latte.vcxproj" Id="4df2245f-eadb-4571-b066-d0ce8730405d" />
-  <Project Path="../tests/GatitosLatte.Pruebas.vcxproj" Id="d2391fe4-0c24-4556-90f9-e59b2ff4b46a" />
 </Solution>
