@@ -152,11 +152,42 @@
     <None Include="..\README.md" />
     <None Include="..\docs\arquitectura.md" />
     <None Include="..\tests\README.md" />
-    <None Include="src\Presentacion\README.md" />
-    <None Include="src\Aplicacion\README.md" />
-    <None Include="src\Dominio\README.md" />
-    <None Include="src\Datos\README.md" />
-    <None Include="src\Estructuras\README.md" />
     <None Include="src\Algoritmos\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dominio\Producto.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dominio\Producto.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArregloDinamico.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Estructuras\ArregloDinamico.tpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Datos\CatalogoProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Datos\CatalogoProductos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Aplicacion\ServicioProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Aplicacion\ServicioProductos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\EntradaConsola.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\EntradaConsola.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuCatalogo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuCatalogo.cpp" />
   </ItemGroup>
 </Project>

@@ -6,8 +6,10 @@ Internacional San Isidro Labrador.
 
 ## Estado actual
 
-Base inicial del proyecto: solución de Visual Studio, estructura por capas y punto
-de entrada compilable. Todavía no se han implementado las funciones de cafetería.
+Implementados: registro, listado y búsqueda secuencial de productos mediante un
+menú de consola. El catálogo utiliza Producto y un arreglo dinámico propio, con
+validaciones y pruebas automatizadas. Ordenamiento, búsqueda binaria, árbol y
+gestión de pedidos siguen pendientes.
 Los nombres de los integrantes se incorporarán antes de la entrega.
 
 ## Objetivo
@@ -33,7 +35,14 @@ cd Gatitos-Latte
 3. Compilar la solución con `Ctrl+Shift+B`.
 4. Ejecutar sin depuración con `Ctrl+F5`.
 
-La versión inicial muestra el nombre del proyecto y un aviso de desarrollo.
+La consola permite registrar, listar y buscar productos por código. Los datos se pierden al salir.
+
+Para verificar las clases implementadas, ejecutar desde PowerShell:
+
+    ./tests/Ejecutar-Pruebas.ps1
+    ./tests/Ejecutar-Pruebas.ps1 -Configuracion Release
+
+Detalles técnicos: [Producto y arreglo dinámico](docs/productos-y-arreglo.md) y [uso del catálogo](docs/catalogo.md).
 
 ## Organización
 
@@ -45,7 +54,7 @@ La versión inicial muestra el nombre del proyecto y un aviso de desarrollo.
 | `Gatitos&Latte/src/Datos` | Almacenamiento y consultas en memoria. |
 | `Gatitos&Latte/src/Estructuras` | Arreglo dinámico, lista, pila, cola y árbol manuales. |
 | `Gatitos&Latte/src/Algoritmos` | Búsquedas y ordenamiento propios. |
-| `tests` | Futuras pruebas de estructuras y casos de uso. |
+| `tests` | Pruebas de entidades, estructuras, catálogo y consola. |
 | `docs` | Diseño y documentación técnica. |
 
 `Gatitos&Latte/Gatitos&Latte.cpp` es el punto de entrada. Las carpetas reservadas se documentan con
@@ -69,7 +78,6 @@ implementados. Los archivos de compilación y ajustes personales del IDE no se s
 
 ## Apoyo de IA
 
-Se utilizó Codex como apoyo para la configuración inicial, organización y
+Se utilizó Codex como apoyo para la configuración, implementación de Producto, arreglo dinámico, catálogo y consola, pruebas y
 documentación. Las revisiones, modificaciones y validaciones realizadas por los
 integrantes se documentarán durante el desarrollo para la entrega académica.
-

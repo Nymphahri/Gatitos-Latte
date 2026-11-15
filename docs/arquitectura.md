@@ -1,7 +1,7 @@
 # Arquitectura inicial
 
 La aplicación será un programa de consola en C++20 organizado por capas dentro
-de un único proyecto. Esta base implementa únicamente el punto de entrada.
+de un único proyecto. Están implementados Producto, ArregloDinamico, el catálogo, el servicio de productos y el menú de registro, listado y búsqueda secuencial, con pruebas.
 
 ## Dependencias
 
@@ -25,7 +25,7 @@ El punto de entrada compondrá los objetos necesarios al iniciar el programa.
 
 ## Próximos incrementos
 
-1. Modelo de producto, arreglo dinámico y registro y consulta del catálogo.
+1. Registro y consulta del catálogo: implementados; continuar con los algoritmos restantes.
 2. Búsquedas y ordenamiento; índice de productos mediante BST.
 3. Modelo de pedido, cálculo del total y cola de pendientes.
 4. Atención de pedidos, lista de procesados e historial mediante pila.
@@ -33,4 +33,3 @@ El punto de entrada compondrá los objetos necesarios al iniciar el programa.
 
 Cada incremento debe compilar y verificarse antes de continuar. La documentación
 final distinguirá lo implementado de las mejoras futuras.
-

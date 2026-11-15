@@ -39,23 +39,68 @@
     <None Include="..\tests\README.md">
       <Filter>Pruebas</Filter>
     </None>
-    <None Include="src\Presentacion\README.md">
-      <Filter>Presentacion</Filter>
-    </None>
-    <None Include="src\Aplicacion\README.md">
-      <Filter>Aplicacion</Filter>
-    </None>
-    <None Include="src\Dominio\README.md">
-      <Filter>Dominio</Filter>
-    </None>
-    <None Include="src\Datos\README.md">
-      <Filter>Datos</Filter>
-    </None>
-    <None Include="src\Estructuras\README.md">
-      <Filter>Estructuras</Filter>
-    </None>
     <None Include="src\Algoritmos\README.md">
       <Filter>Algoritmos</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dominio\Producto.cpp">
+      <Filter>Dominio</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dominio\Producto.h">
+      <Filter>Dominio</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArregloDinamico.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Estructuras\ArregloDinamico.tpp">
+      <Filter>Estructuras</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Datos\CatalogoProductos.h">
+      <Filter>Datos</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Datos\CatalogoProductos.cpp">
+      <Filter>Datos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Aplicacion\ServicioProductos.h">
+      <Filter>Aplicacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Aplicacion\ServicioProductos.cpp">
+      <Filter>Aplicacion</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\EntradaConsola.h">
+      <Filter>Presentacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\EntradaConsola.cpp">
+      <Filter>Presentacion</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuCatalogo.h">
+      <Filter>Presentacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuCatalogo.cpp">
+      <Filter>Presentacion</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
