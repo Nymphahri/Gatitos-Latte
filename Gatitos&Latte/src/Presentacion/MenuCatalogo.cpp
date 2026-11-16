@@ -17,14 +17,16 @@ void MenuCatalogo::ejecutar()
     try {
         for (;;) {
             salida_ << "\n1. Registrar producto\n2. Listar productos\n"
-                       "3. Buscar por codigo\n0. Salir\n";
-            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 3);
+                       "3. Buscar por codigo (secuencial)\n4. Ordenar productos\n5. Buscar por codigo (binaria)\n0. Salir\n";
+            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 5);
             if (opcion == 0) { salida_ << "Hasta luego.\n"; return; }
             try {
                 switch (opcion) {
                 case 1: registrar(); break;
                 case 2: listar(); break;
                 case 3: buscar(); break;
+                case 4: ordenar(); break;
+                case 5: buscar(true); break;
                 }
             } catch (const std::invalid_argument& error) {
                 salida_ << error.what() << '\n';
@@ -64,11 +66,23 @@ void MenuCatalogo::listar() const
     for (std::size_t i = 0; i < servicio_.cantidad(); ++i) { mostrar(servicio_.productoEn(i)); }
 }
 
-void MenuCatalogo::buscar()
+void MenuCatalogo::buscar(bool binaria)
 {
     const int codigo = entrada_.leerEntero("Codigo a buscar: ", 1, (std::numeric_limits<int>::max)());
-    const auto producto = servicio_.buscarPorCodigo(codigo);
+    if (binaria) { salida_ << "Busqueda binaria: el catalogo se ordena por codigo si es necesario.\n"; }
+    const auto producto = binaria ? servicio_.buscarBinaria(codigo) : servicio_.buscarPorCodigo(codigo);
     if (producto) { mostrar(*producto); }
     else { salida_ << "No se encontro un producto con ese codigo.\n"; }
+}
+void MenuCatalogo::ordenar()
+{
+    salida_ << "1. Codigo\n2. Nombre\n3. Precio\n";
+    const int opcion = entrada_.leerEntero("Criterio: ", 1, 3);
+    algoritmos::CriterioOrden criterio = algoritmos::CriterioOrden::Codigo;
+    if (opcion == 2) { criterio = algoritmos::CriterioOrden::Nombre; }
+    else if (opcion == 3) { criterio = algoritmos::CriterioOrden::Precio; }
+    servicio_.ordenar(criterio);
+    salida_ << "Catalogo ordenado de menor a mayor.\n";
+    listar();
 }
 }

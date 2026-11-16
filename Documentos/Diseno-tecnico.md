@@ -2,21 +2,22 @@
 
 ## Alcance actual
 
-La aplicación permite registrar, listar y consultar productos por código en una
-consola. Utiliza información en memoria durante la ejecución. Los módulos de
-pedidos y los algoritmos restantes se incorporarán en próximos incrementos.
+La aplicación permite registrar, listar, ordenar y consultar productos en una
+consola. Los datos permanecen en memoria durante la ejecución. Los pedidos,
+la cola, la lista enlazada, la pila y el árbol están pendientes.
 
 ## Arquitectura
 
-Presentacion llama a Aplicacion. Aplicacion utiliza Dominio y Datos. Datos almacena
-las entidades mediante Estructuras. Dominio y Estructuras no dependen de la consola.
+Presentacion llama a Aplicacion. Aplicacion utiliza Dominio y Datos. Datos utiliza
+Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entradas.
 
 | Componente | Responsabilidad |
 |---|---|
 | Producto | Código, nombre, categoría, precio y disponibilidad; valida sus datos. |
-| ArregloDinamico | Memoria contigua, capacidad, crecimiento, copia y destrucción. |
-| CatalogoProductos | Almacena productos, impide códigos duplicados y realiza consultas. |
-| ServicioProductos | Construye productos válidos y coordina el registro. |
+| ArregloProductos | Arreglo dinámico de punteros, crecimiento, copia y liberación. |
+| AlgoritmosProductos | Ordenamiento por inserción y búsqueda binaria. |
+| CatalogoProductos | Almacena productos, impide duplicados y prepara las búsquedas. |
+| ServicioProductos | Construye productos válidos y coordina los casos de uso. |
 | EntradaConsola | Valida formatos y convierte precios a céntimos. |
 | MenuCatalogo | Presenta opciones y resultados. |
 
@@ -27,44 +28,89 @@ contener texto y el precio debe ser mayor que cero. Los importes se guardan como
 enteros de 64 bits en céntimos: 180050 representa ₡1800,50. La conversión comprueba
 el límite del entero para evitar desbordamientos y no utiliza coma flotante.
 
-## Arreglo dinámico
+## Arreglo dinámico y punteros
 
-La estructura administra un bloque contiguo. Cuando se llena, reserva mayor
-capacidad, copia los elementos y libera el bloque anterior. La capacidad crece
-geométricamente. El acceso es O(1); agregar es O(1) amortizado y O(n) al crecer.
+ArregloProductos es una clase concreta con declaración en `.h` e implementación
+en `.cpp`. No usa plantillas ni contenedores prefabricados.
 
-`std::allocator` reserva memoria alineada; `std::construct_at` y `std::destroy_at`
-administran la vida de cada objeto. El control del tamaño, crecimiento, acceso y
-copia está implementado en el proyecto, sin usar contenedores estándar.
+`Producto** datos_` apunta a un bloque creado con `new Producto*[capacidad]{}`.
+Este bloque almacena punteros en posiciones contiguas, no los objetos Producto.
+Cada posición ocupada apunta a un producto creado con `new Producto(producto)`.
+Las posiciones libres contienen `nullptr`.
 
-El archivo `.tpp` contiene las definiciones de la plantilla y se incluye desde el
-`.h` para que el compilador pueda generar cada tipo de arreglo. La copia es
-independiente; el movimiento transfiere el bloque. Al limpiar se destruyen los
-elementos y se conserva la capacidad. El destructor libera todos los recursos.
+Al crecer, se reserva un arreglo de punteros mayor, se copian las direcciones
+existentes y se libera el bloque anterior con `delete[]`. Los productos permanecen
+en sus propias direcciones. La capacidad se duplica cuando resulta posible; se
+comprueba el límite antes de multiplicar.
 
-Una reserva fallida conserva los datos originales. Una inserción fallida conserva
-el tamaño y los valores, aunque puede haber aumentado la capacidad. Las referencias
-a los elementos no deben conservarse cuando el bloque se reemplaza o se destruye.
+El arreglo es dueño de los productos. `limpiar()` usa `delete` para cada producto,
+coloca los punteros en `nullptr` y reinicia el tamaño. El destructor además usa
+`delete[]` para liberar el bloque de punteros. No se debe liberar desde fuera
+ningún producto obtenido del arreglo.
 
-## Registro y búsqueda
+La copia es profunda: cada producto se duplica. Se definen destructor, constructor
+de copia y asignación para evitar que dos arreglos liberen los mismos objetos.
+Si una copia falla, se liberan los objetos parciales. La asignación completa
+primero una copia temporal para no perder el destino ante un fallo.
 
-El menú solicita todos los campos antes de registrar. ServicioProductos construye
-una entidad válida y CatalogoProductos comprueba que su código no exista antes
-de agregarla. Un código duplicado no sobrescribe el registro original.
+El acceso es O(1). Agregar es O(1) amortizado y O(n) al crecer. La copia y la
+destrucción son O(n), suponiendo costo constante por producto. A cambio de un
+manejo explícito de punteros, cada producto requiere una reserva individual de
+memoria y el arreglo ocupa espacio adicional para las direcciones.
 
-La búsqueda secuencial recorre los elementos hasta encontrar el código o llegar al
-final; su costo es O(n). Devuelve una copia opcional del resultado. `std::optional`
-representa presencia o ausencia de un producto y no sustituye el almacenamiento.
+## Ordenamiento por inserción
 
-## Validaciones de la consola
+Se recorre el arreglo desde la segunda posición. Cada elemento se desplaza hacia
+la izquierda mediante intercambios de punteros hasta quedar en su lugar dentro de
+la parte ya ordenada. No se utiliza `std::sort`.
 
-La entrada se lee por líneas. Los formatos incorrectos vuelven a solicitar el
-campo. El precio admite punto o coma y hasta dos decimales, sin separadores de
-miles. Cerrar la entrada durante un registro no crea un producto parcial.
+Los criterios son código, nombre y precio, en orden ascendente. Los empates de
+nombre o precio se resuelven por código. La comparación de nombres usa el orden
+de `std::string`: distingue mayúsculas y minúsculas y no aplica reglas lingüísticas
+especiales para tildes. No debe presentarse como ordenación alfabética española.
 
-## Funcionalidades pendientes
+El costo es O(n²) en el peor caso, O(n) si ya está ordenado y O(1) de espacio
+auxiliar, considerando comparaciones de costo constante. Comparar nombres también
+depende de su longitud.
 
-Ordenamiento, segundo algoritmo de búsqueda, árbol binario, pedidos y totales,
-cola de pendientes, lista de procesados e historial con pila. El informe final
-incluirá objetivos, requerimientos, capturas reales, conclusiones y los demás
-apartados exigidos por el curso.
+## Búsquedas
+
+La búsqueda secuencial recorre los productos hasta encontrar el código o llegar
+al final; no requiere orden previo y su costo es O(n).
+
+La búsqueda binaria examina el elemento central y descarta la mitad que no puede
+contener el código. Usa un límite superior exclusivo para manejar también el
+arreglo vacío sin restar a un índice cero. Su costo es O(log n) cuando el arreglo
+ya está ordenado por código.
+
+CatalogoProductos mantiene una marca de orden. Registrar un producto o elegir
+otro criterio invalida el orden por código. Antes de la búsqueda binaria, el
+catálogo ordena por código cuando sea necesario y actualiza la marca. Por tanto,
+una consulta que necesita preparar el orden puede costar O(n²); no corresponde
+afirmar que toda la operación sea siempre O(log n).
+
+La búsqueda binaria cambia el orden visible del catálogo a código. La consola
+lo comunica. El algoritmo devuelve un puntero no propietario y el catálogo
+devuelve una copia opcional del resultado. `std::optional` expresa presencia o
+ausencia; no sustituye el almacenamiento principal.
+
+## Menú y validaciones
+
+1. Registrar producto.
+2. Listar productos en el orden actual.
+3. Buscar por código mediante búsqueda secuencial.
+4. Ordenar productos y mostrar el resultado.
+5. Buscar por código mediante búsqueda binaria.
+0. Salir.
+
+El precio admite punto o coma y hasta dos decimales, sin separadores de miles.
+Los campos incorrectos se solicitan nuevamente. Los códigos duplicados no
+sobrescriben datos. Cerrar la entrada durante un registro no crea un producto
+parcial. Los productos no disponibles también aparecen en las consultas.
+
+## Pendientes para la entrega
+
+Árbol binario de búsqueda de productos; registro de pedidos y totales; cola FIFO;
+procesamiento y estados; lista enlazada de pedidos procesados; pila del historial.
+Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
+y los demás apartados exigidos por el curso.

@@ -44,14 +44,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\ArregloDinamico.h">
-      <Filter>Estructuras</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Estructuras\ArregloDinamico.tpp">
-      <Filter>Estructuras</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Datos\CatalogoProductos.h">
@@ -97,5 +91,25 @@
     <None Include="..\Documentos\Diseno-tecnico.md">
       <Filter>Documentacion</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArregloProductos.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ArregloProductos.cpp">
+      <Filter>Estructuras</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Algoritmos\AlgoritmosProductos.h">
+      <Filter>Algoritmos</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Algoritmos\AlgoritmosProductos.cpp">
+      <Filter>Algoritmos</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

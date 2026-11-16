@@ -14,6 +14,9 @@ public:
     [[nodiscard]] const dominio::Producto& productoEn(std::size_t indice) const;
     [[nodiscard]] std::optional<dominio::Producto> buscarPorCodigo(int codigo) const;
 
+    void ordenar(algoritmos::CriterioOrden criterio);
+    [[nodiscard]] std::optional<dominio::Producto> buscarBinaria(int codigo);
+
 private:
     datos::CatalogoProductos& catalogo_;
 };

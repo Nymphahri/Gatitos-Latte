@@ -13,11 +13,12 @@ manualmente, con separación por capas y responsabilidades.
 
 - Registro de productos con código, nombre, categoría, precio y disponibilidad.
 - Validación de códigos duplicados y datos de entrada.
-- Listado del catálogo y búsqueda secuencial por código.
+- Listado del catálogo y búsquedas secuencial y binaria por código.
+- Ordenamiento por inserción según código, nombre o precio.
 - Almacenamiento en memoria mediante un arreglo dinámico propio.
 
-Pendientes: ordenamiento, búsqueda binaria, árbol de productos, registro y atención
-de pedidos, cola, lista enlazada e historial mediante pila.
+Pendientes: árbol de productos, registro y atención de pedidos, cola, lista
+enlazada e historial mediante pila.
 
 ## Requisitos
 
@@ -49,6 +50,7 @@ miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.
 | `Gatitos&Latte/src/Dominio` | Entidades y validaciones del negocio. |
 | `Gatitos&Latte/src/Datos` | Almacenamiento y consultas. |
 | `Gatitos&Latte/src/Estructuras` | Estructuras de datos manuales. |
+| `Gatitos&Latte/src/Algoritmos` | Ordenamiento por inserción y búsqueda binaria. |
 | `Documentos` | Documentación técnica del sistema. |
 
 El archivo `Gatitos&Latte.cpp` construye y conecta los componentes.

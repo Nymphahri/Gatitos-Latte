@@ -158,10 +158,8 @@
     <ClInclude Include="src\Dominio\Producto.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\ArregloDinamico.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Estructuras\ArregloDinamico.tpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Datos\CatalogoProductos.h" />
@@ -189,5 +187,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Documentos\Diseno-tecnico.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArregloProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ArregloProductos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Algoritmos\AlgoritmosProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Algoritmos\AlgoritmosProductos.cpp" />
   </ItemGroup>
 </Project>

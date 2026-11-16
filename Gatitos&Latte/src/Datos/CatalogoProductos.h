@@ -1,7 +1,8 @@
 #pragma once
 
 #include "../Dominio/Producto.h"
-#include "../Estructuras/ArregloDinamico.h"
+#include "../Estructuras/ArregloProductos.h"
+#include "../Algoritmos/AlgoritmosProductos.h"
 #include <optional>
 
 namespace gatitos::datos
@@ -13,8 +14,11 @@ public:
     [[nodiscard]] std::size_t cantidad() const noexcept;
     [[nodiscard]] const dominio::Producto& en(std::size_t indice) const;
     [[nodiscard]] std::optional<dominio::Producto> buscarPorCodigo(int codigo) const;
+    [[nodiscard]] std::optional<dominio::Producto> buscarBinaria(int codigo);
+    void ordenar(algoritmos::CriterioOrden criterio);
 
 private:
-    estructuras::ArregloDinamico<dominio::Producto> productos_;
+    estructuras::ArregloProductos productos_;
+    bool ordenadoPorCodigo_ = true;
 };
 }

@@ -15,7 +15,8 @@ public:
 private:
     void registrar();
     void listar() const;
-    void buscar();
+    void buscar(bool binaria = false);
+    void ordenar();
     void mostrar(const dominio::Producto& producto) const;
 
     aplicacion::ServicioProductos& servicio_;
