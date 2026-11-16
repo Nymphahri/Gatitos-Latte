@@ -17,6 +17,8 @@ private:
     void listar() const;
     void buscar(bool binaria = false);
     void ordenar();
+    void buscarEnArbol();
+    void mostrarInorden() const;
     void mostrar(const dominio::Producto& producto) const;
 
     aplicacion::ServicioProductos& servicio_;

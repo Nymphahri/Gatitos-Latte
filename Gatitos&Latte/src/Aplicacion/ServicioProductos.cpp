@@ -35,4 +35,13 @@ std::optional<dominio::Producto> ServicioProductos::buscarBinaria(int codigo)
 {
     return catalogo_.buscarBinaria(codigo);
 }
+std::optional<dominio::Producto> ServicioProductos::buscarEnArbol(int codigo) const
+{
+    return catalogo_.buscarEnArbol(codigo);
+}
+
+estructuras::ArregloProductos ServicioProductos::productosInorden() const
+{
+    return catalogo_.productosInorden();
+}
 }

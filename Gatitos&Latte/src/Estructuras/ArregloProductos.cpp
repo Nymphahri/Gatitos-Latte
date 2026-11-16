@@ -95,4 +95,12 @@ void ArregloProductos::limpiar() noexcept
     }
     tamano_ = 0;
 }
+bool ArregloProductos::eliminarUltimo() noexcept
+{
+    if (vacio()) { return false; }
+    --tamano_;
+    delete datos_[tamano_];
+    datos_[tamano_] = nullptr;
+    return true;
+}
 }

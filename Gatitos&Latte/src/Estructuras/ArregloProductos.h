@@ -24,6 +24,7 @@ public:
     void reservar(std::size_t capacidad);
     void intercambiar(std::size_t primero, std::size_t segundo);
     void limpiar() noexcept;
+    bool eliminarUltimo() noexcept;
 
 private:
     dominio::Producto** datos_ = nullptr;

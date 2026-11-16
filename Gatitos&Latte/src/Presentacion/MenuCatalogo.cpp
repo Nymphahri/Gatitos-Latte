@@ -17,8 +17,8 @@ void MenuCatalogo::ejecutar()
     try {
         for (;;) {
             salida_ << "\n1. Registrar producto\n2. Listar productos\n"
-                       "3. Buscar por codigo (secuencial)\n4. Ordenar productos\n5. Buscar por codigo (binaria)\n0. Salir\n";
-            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 5);
+                       "3. Buscar por codigo (secuencial)\n4. Ordenar productos\n5. Buscar por codigo (binaria)\n6. Buscar en el arbol\n7. Mostrar arbol en inorden\n0. Salir\n";
+            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 7);
             if (opcion == 0) { salida_ << "Hasta luego.\n"; return; }
             try {
                 switch (opcion) {
@@ -27,6 +27,8 @@ void MenuCatalogo::ejecutar()
                 case 3: buscar(); break;
                 case 4: ordenar(); break;
                 case 5: buscar(true); break;
+                case 6: buscarEnArbol(); break;
+                case 7: mostrarInorden(); break;
                 }
             } catch (const std::invalid_argument& error) {
                 salida_ << error.what() << '\n';
@@ -84,5 +86,20 @@ void MenuCatalogo::ordenar()
     servicio_.ordenar(criterio);
     salida_ << "Catalogo ordenado de menor a mayor.\n";
     listar();
+}
+void MenuCatalogo::buscarEnArbol()
+{
+    const int codigo = entrada_.leerEntero("Codigo a buscar en el arbol: ", 1, (std::numeric_limits<int>::max)());
+    const auto producto = servicio_.buscarEnArbol(codigo);
+    if (producto) { mostrar(*producto); }
+    else { salida_ << "No se encontro un producto con ese codigo.\n"; }
+}
+
+void MenuCatalogo::mostrarInorden() const
+{
+    salida_ << "Recorrido inorden: izquierda, raiz, derecha.\n";
+    const auto recorrido = servicio_.productosInorden();
+    if (recorrido.vacio()) { salida_ << "No hay productos registrados.\n"; return; }
+    for (std::size_t i = 0; i < recorrido.tamano(); ++i) { mostrar(recorrido.en(i)); }
 }
 }

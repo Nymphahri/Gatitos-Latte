@@ -112,4 +112,14 @@
       <Filter>Algoritmos</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArbolProductos.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ArbolProductos.cpp">
+      <Filter>Estructuras</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

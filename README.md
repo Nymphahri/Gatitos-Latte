@@ -16,9 +16,10 @@ manualmente, con separación por capas y responsabilidades.
 - Listado del catálogo y búsquedas secuencial y binaria por código.
 - Ordenamiento por inserción según código, nombre o precio.
 - Almacenamiento en memoria mediante un arreglo dinámico propio.
+- Árbol binario por código, con inserción, búsqueda y recorrido inorden.
 
-Pendientes: árbol de productos, registro y atención de pedidos, cola, lista
-enlazada e historial mediante pila.
+Pendientes: registro y atención de pedidos, cola de pendientes, lista de
+pedidos procesados e historial mediante pila.
 
 ## Requisitos
 

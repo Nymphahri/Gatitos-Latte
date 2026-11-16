@@ -17,6 +17,9 @@ public:
     void ordenar(algoritmos::CriterioOrden criterio);
     [[nodiscard]] std::optional<dominio::Producto> buscarBinaria(int codigo);
 
+    [[nodiscard]] std::optional<dominio::Producto> buscarEnArbol(int codigo) const;
+    [[nodiscard]] estructuras::ArregloProductos productosInorden() const;
+
 private:
     datos::CatalogoProductos& catalogo_;
 };

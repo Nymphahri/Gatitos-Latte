@@ -200,4 +200,10 @@
   <ItemGroup>
     <ClCompile Include="src\Algoritmos\AlgoritmosProductos.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ArbolProductos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ArbolProductos.cpp" />
+  </ItemGroup>
 </Project>

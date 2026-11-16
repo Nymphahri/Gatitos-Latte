@@ -4,7 +4,7 @@
 
 La aplicación permite registrar, listar, ordenar y consultar productos en una
 consola. Los datos permanecen en memoria durante la ejecución. Los pedidos,
-la cola, la lista enlazada, la pila y el árbol están pendientes.
+la cola, la lista enlazada y la pila están pendientes. El árbol de productos está implementado.
 
 ## Arquitectura
 
@@ -15,6 +15,7 @@ Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entrad
 |---|---|
 | Producto | Código, nombre, categoría, precio y disponibilidad; valida sus datos. |
 | ArregloProductos | Arreglo dinámico de punteros, crecimiento, copia y liberación. |
+| ArbolProductos | Índice por código, búsqueda y recorrido inorden. |
 | AlgoritmosProductos | Ordenamiento por inserción y búsqueda binaria. |
 | CatalogoProductos | Almacena productos, impide duplicados y prepara las búsquedas. |
 | ServicioProductos | Construye productos válidos y coordina los casos de uso. |
@@ -101,6 +102,8 @@ ausencia; no sustituye el almacenamiento principal.
 3. Buscar por código mediante búsqueda secuencial.
 4. Ordenar productos y mostrar el resultado.
 5. Buscar por código mediante búsqueda binaria.
+6. Buscar por código en el árbol.
+7. Mostrar los productos mediante recorrido inorden.
 0. Salir.
 
 El precio admite punto o coma y hasta dos decimales, sin separadores de miles.
@@ -108,9 +111,44 @@ Los campos incorrectos se solicitan nuevamente. Los códigos duplicados no
 sobrescriben datos. Cerrar la entrada durante un registro no crea un producto
 parcial. Los productos no disponibles también aparecen en las consultas.
 
+## Árbol binario de productos
+
+Cada nodo contiene un puntero constante a un producto y dos enlaces: izquierdo
+y derecho. Los códigos menores se insertan a la izquierda y los mayores a la
+derecha. No se permiten códigos repetidos ni se utilizan bibliotecas de árboles.
+
+El arreglo continúa siendo el almacenamiento principal y dueño de los productos.
+El árbol posee únicamente sus nodos. Las direcciones de los productos permanecen
+estables al ampliar u ordenar el arreglo, porque estas operaciones reorganizan
+punteros, no mueven los objetos. El catálogo no permite modificar sus códigos.
+
+Al registrar se agrega primero el producto al arreglo y después su referencia al
+árbol. Si falla la creación del nodo, se retira el último producto agregado para
+que ambas estructuras conserven el mismo contenido. Antes de insertar se comprueba
+el código en el árbol. Esta comprobación no sustituye las búsquedas secuencial y
+binaria, que permanecen disponibles en el menú.
+
+El árbol se destruye antes que el arreglo y libera solamente sus nodos. No admite
+copia, para evitar compartir nodos accidentalmente. Tampoco admite insertar objetos
+temporales: los productos referenciados deben seguir vivos mientras exista el árbol.
+El catálogo no ofrece eliminación de productos; cualquier incorporación futura de
+esa función deberá retirar primero el nodo correspondiente.
+
+La inserción usa recursividad. El recorrido inorden visita izquierda, raíz y
+derecha y produce los productos en orden ascendente de código, sin cambiar el
+orden actual del arreglo. Devuelve un arreglo independiente para la presentación.
+La liberación visita los hijos antes de eliminar cada nodo.
+
+La búsqueda es iterativa. Inserción y búsqueda cuestan O(h), donde h es la altura:
+O(log n) en un árbol equilibrado y O(n) cuando queda como una cadena. Este BST no
+se balancea automáticamente. El recorrido cuesta O(n), más O(n) para la copia de
+resultados, y las operaciones recursivas ocupan O(h) de pila de llamadas. Una cadena
+muy profunda puede agotar esa pila; no es una estructura diseñada para volúmenes
+arbitrariamente grandes.
+
 ## Pendientes para la entrega
 
-Árbol binario de búsqueda de productos; registro de pedidos y totales; cola FIFO;
+Registro de pedidos y totales; cola FIFO;
 procesamiento y estados; lista enlazada de pedidos procesados; pila del historial.
 Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
 y los demás apartados exigidos por el curso.
