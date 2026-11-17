@@ -17,9 +17,11 @@ manualmente, con separación por capas y responsabilidades.
 - Ordenamiento por inserción según código, nombre o precio.
 - Almacenamiento en memoria mediante un arreglo dinámico propio.
 - Árbol binario por código, con inserción, búsqueda y recorrido inorden.
+- Registro de pedidos con número automático y cálculo exacto del total.
+- Cola FIFO manual: pendientes, siguiente pedido y consulta por número.
 
-Pendientes: registro y atención de pedidos, cola de pendientes, lista de
-pedidos procesados e historial mediante pila.
+Pendientes: atención y cambio de estado de pedidos, lista de procesados e
+historial mediante pila. La opción de entregar pedidos aún no está disponible.
 
 ## Requisitos
 
@@ -38,6 +40,10 @@ cd Gatitos-Latte
 2. Seleccionar Debug y plataforma x64.
 3. Compilar con Ctrl+Shift+B.
 4. Ejecutar con Ctrl+F5.
+
+El menú principal separa Productos y Pedidos. Primero se registra un producto
+disponible; después, en Pedidos, se indica cliente, código del producto y cantidad.
+Cada pedido contiene un producto con su cantidad. El número se asigna automáticamente.
 
 El precio se introduce en colones, con hasta dos decimales y sin separadores de
 miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.

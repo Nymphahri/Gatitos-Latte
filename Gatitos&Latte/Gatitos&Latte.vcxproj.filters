@@ -122,4 +122,64 @@
       <Filter>Estructuras</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dominio\Pedido.h">
+      <Filter>Dominio</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dominio\Pedido.cpp">
+      <Filter>Dominio</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ColaPedidos.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ColaPedidos.cpp">
+      <Filter>Estructuras</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Datos\RegistroPedidos.h">
+      <Filter>Datos</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Datos\RegistroPedidos.cpp">
+      <Filter>Datos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Aplicacion\ServicioPedidos.h">
+      <Filter>Aplicacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Aplicacion\ServicioPedidos.cpp">
+      <Filter>Aplicacion</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuPedidos.h">
+      <Filter>Presentacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuPedidos.cpp">
+      <Filter>Presentacion</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuPrincipal.h">
+      <Filter>Presentacion</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuPrincipal.cpp">
+      <Filter>Presentacion</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

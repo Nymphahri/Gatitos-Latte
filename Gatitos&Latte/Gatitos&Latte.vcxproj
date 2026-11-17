@@ -206,4 +206,40 @@
   <ItemGroup>
     <ClCompile Include="src\Estructuras\ArbolProductos.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dominio\Pedido.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Dominio\Pedido.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\ColaPedidos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Estructuras\ColaPedidos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Datos\RegistroPedidos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Datos\RegistroPedidos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Aplicacion\ServicioPedidos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Aplicacion\ServicioPedidos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuPedidos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuPedidos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Presentacion\MenuPrincipal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Presentacion\MenuPrincipal.cpp" />
+  </ItemGroup>
 </Project>

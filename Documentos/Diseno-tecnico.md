@@ -3,8 +3,9 @@
 ## Alcance actual
 
 La aplicación permite registrar, listar, ordenar y consultar productos en una
-consola. Los datos permanecen en memoria durante la ejecución. Los pedidos,
-la cola, la lista enlazada y la pila están pendientes. El árbol de productos está implementado.
+consola. También registra pedidos y mantiene una cola FIFO de pendientes.
+Los datos permanecen en memoria durante la ejecución. Están pendientes la
+atención de pedidos, la lista de procesados y la pila del historial.
 
 ## Arquitectura
 
@@ -20,7 +21,13 @@ Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entrad
 | CatalogoProductos | Almacena productos, impide duplicados y prepara las búsquedas. |
 | ServicioProductos | Construye productos válidos y coordina los casos de uso. |
 | EntradaConsola | Valida formatos y convierte precios a céntimos. |
-| MenuCatalogo | Presenta opciones y resultados. |
+| MenuCatalogo | Presenta opciones y resultados del catálogo. |
+| Pedido | Guarda cliente, producto, cantidad, precio de venta, total y estado. |
+| ColaPedidos | Mantiene los pendientes mediante nodos enlazados FIFO. |
+| RegistroPedidos | Conserva la cola y asigna la secuencia de números. |
+| ServicioPedidos | Consulta el producto y coordina el registro del pedido. |
+| MenuPedidos | Registro y consultas de pedidos pendientes. |
+| MenuPrincipal | Navega entre los módulos sin perder sus datos. |
 
 ## Producto e importes
 
@@ -95,7 +102,7 @@ lo comunica. El algoritmo devuelve un puntero no propietario y el catálogo
 devuelve una copia opcional del resultado. `std::optional` expresa presencia o
 ausencia; no sustituye el almacenamiento principal.
 
-## Menú y validaciones
+## Menú del catálogo y validaciones
 
 1. Registrar producto.
 2. Listar productos en el orden actual.
@@ -104,7 +111,7 @@ ausencia; no sustituye el almacenamiento principal.
 5. Buscar por código mediante búsqueda binaria.
 6. Buscar por código en el árbol.
 7. Mostrar los productos mediante recorrido inorden.
-0. Salir.
+0. Volver al menú principal.
 
 El precio admite punto o coma y hasta dos decimales, sin separadores de miles.
 Los campos incorrectos se solicitan nuevamente. Los códigos duplicados no
@@ -146,9 +153,46 @@ resultados, y las operaciones recursivas ocupan O(h) de pila de llamadas. Una ca
 muy profunda puede agotar esa pila; no es una estructura diseñada para volúmenes
 arbitrariamente grandes.
 
+## Pedidos y cola FIFO
+
+Cada Pedido contiene un número positivo, cliente, copia del producto solicitado,
+cantidad positiva, precio unitario en céntimos, total y estado Pendiente. Se admite
+un producto por pedido, con la cantidad solicitada. Los productos inexistentes o
+no disponibles se rechazan. El producto se consulta mediante el árbol del catálogo.
+
+El total se calcula multiplicando precio por cantidad. Antes de multiplicar se
+comprueba el límite del entero de 64 bits, para evitar desbordamientos. La copia
+del producto conserva el precio al momento del registro, independientemente de
+cambios posteriores en el catálogo.
+
+RegistroPedidos asigna números consecutivos desde 1 durante cada ejecución. El
+contador avanza solamente después de agregar el pedido a la cola. Un registro
+rechazado no consume un número. El contador está limitado al rango de los números
+de pedido de tipo int y comprueba su agotamiento antes de asignar otro.
+
+ColaPedidos utiliza nodos propios con un Pedido y un puntero siguiente. Frente
+apunta al primero y final al último. Encolar agrega al final; desencolar elimina
+el frente. Ambas operaciones cuestan O(1), suponiendo costo constante por copia
+de Pedido. Al retirar el último nodo, ambos punteros quedan en nullptr. La cola
+libera sus nodos al destruirse y realiza copias independientes.
+
+Ver el siguiente pedido no lo retira. Listar pendientes crea una copia de la cola
+y la recorre en orden de llegada: la cola original no cambia. Esta consulta cuesta
+O(n) de tiempo y memoria adicional. Buscar por número recorre la cola en O(n).
+
+El menú principal ofrece Productos, Pedidos y Salir. El menú de Pedidos ofrece
+registrar, listar pendientes, ver el siguiente, buscar por número y volver. Los
+objetos de datos viven durante toda la ejecución, por lo que navegar entre menús
+no elimina información. Un cierre de entrada no guarda pedidos parciales.
+
+La cola ya dispone de desencolar, pero no se expone todavía una opción para
+entregar pedidos. Se conectará al procesamiento cuando exista la lista de pedidos
+procesados y el registro de operaciones. Actualmente todos los pedidos permanecen
+Pendientes; no se implementan todavía estados Entregado o Cancelado.
+
 ## Pendientes para la entrega
 
-Registro de pedidos y totales; cola FIFO;
-procesamiento y estados; lista enlazada de pedidos procesados; pila del historial.
+Procesamiento y cambio de estado de pedidos; lista enlazada de pedidos procesados;
+pila del historial de operaciones.
 Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
 y los demás apartados exigidos por el curso.

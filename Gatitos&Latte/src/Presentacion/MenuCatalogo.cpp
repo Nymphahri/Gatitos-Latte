@@ -17,9 +17,9 @@ void MenuCatalogo::ejecutar()
     try {
         for (;;) {
             salida_ << "\n1. Registrar producto\n2. Listar productos\n"
-                       "3. Buscar por codigo (secuencial)\n4. Ordenar productos\n5. Buscar por codigo (binaria)\n6. Buscar en el arbol\n7. Mostrar arbol en inorden\n0. Salir\n";
+                       "3. Buscar por codigo (secuencial)\n4. Ordenar productos\n5. Buscar por codigo (binaria)\n6. Buscar en el arbol\n7. Mostrar arbol en inorden\n0. Volver\n";
             const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 7);
-            if (opcion == 0) { salida_ << "Hasta luego.\n"; return; }
+            if (opcion == 0) { return; }
             try {
                 switch (opcion) {
                 case 1: registrar(); break;
