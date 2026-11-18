@@ -23,8 +23,8 @@ void MenuPedidos::ejecutar()
         for (;;) {
             salida_ << "\nPEDIDOS\n1. Registrar pedido\n2. Ver pendientes\n"
                        "3. Ver siguiente pedido\n4. Buscar pedido por numero\n"
-                       "5. Atender siguiente pedido\n6. Ver procesados\n0. Volver\n";
-            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 6);
+                       "5. Atender siguiente pedido\n6. Ver procesados\n7. Ver historial\n0. Volver\n";
+            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 7);
             if (opcion == 0) { return; }
             try {
                 switch (opcion) {
@@ -34,6 +34,7 @@ void MenuPedidos::ejecutar()
                 case 4: buscar(); break;
                 case 5: atender(); break;
                 case 6: listarProcesados(); break;
+                case 7: mostrarHistorial(); break;
                 }
             } catch (const std::invalid_argument& error) { salida_ << error.what() << '\n'; }
             catch (const std::overflow_error& error) { salida_ << error.what() << '\n'; }
@@ -99,6 +100,22 @@ void MenuPedidos::listarProcesados() const
         const auto* pedido = copia.primero();
         mostrar(*pedido);
         copia.eliminar(pedido->numero());
+    }
+}
+
+void MenuPedidos::mostrarHistorial() const
+{
+    auto copia = servicio_.historial();
+    if (copia.vacia()) { salida_ << "No hay operaciones en el historial.\n"; return; }
+    salida_ << "Historial de pedidos (mas reciente primero):\n";
+    while (!copia.vacia()) {
+        const auto* operacion = copia.cima();
+        salida_ << "Pedido #" << operacion->numeroPedido() << ": ";
+        switch (operacion->tipo()) {
+        case dominio::TipoOperacionPedido::Registro: salida_ << "registrado\n"; break;
+        case dominio::TipoOperacionPedido::Entrega: salida_ << "entregado\n"; break;
+        }
+        copia.desapilar(); // Solo se consume la copia utilizada para la consulta.
     }
 }
 

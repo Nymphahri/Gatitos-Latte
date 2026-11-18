@@ -186,4 +186,12 @@
     <ClInclude Include="src\Estructuras\ListaPedidos.h"><Filter>Estructuras</Filter></ClInclude>
     <ClCompile Include="src\Estructuras\ListaPedidos.cpp"><Filter>Estructuras</Filter></ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Dominio\OperacionPedido.h"><Filter>Dominio</Filter></ClInclude>
+    <ClCompile Include="src\Dominio\OperacionPedido.cpp"><Filter>Dominio</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Estructuras\PilaOperaciones.h"><Filter>Estructuras</Filter></ClInclude>
+    <ClCompile Include="src\Estructuras\PilaOperaciones.cpp"><Filter>Estructuras</Filter></ClCompile>
+  </ItemGroup>
 </Project>

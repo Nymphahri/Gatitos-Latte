@@ -18,6 +18,7 @@ private:
     void buscar();
     void atender();
     void listarProcesados() const;
+    void mostrarHistorial() const;
     void mostrar(const dominio::Pedido& pedido) const;
     aplicacion::ServicioPedidos& servicio_;
     EntradaConsola entrada_;

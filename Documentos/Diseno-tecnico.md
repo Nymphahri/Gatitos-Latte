@@ -5,8 +5,8 @@
 La aplicación permite registrar, listar, ordenar y consultar productos en una
 consola. También registra pedidos y mantiene una cola FIFO de pendientes.
 Permite atender el siguiente pedido y conservarlo como Entregado en una lista
-enlazada. Los datos permanecen en memoria durante la ejecución. Está pendiente
-la pila del historial.
+enlazada. Una pila conserva el historial de registros y entregas. Los datos
+permanecen en memoria durante la ejecución.
 
 ## Arquitectura
 
@@ -26,7 +26,9 @@ Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entrad
 | Pedido | Guarda cliente, producto, cantidad, precio de venta, total y estado. |
 | ColaPedidos | Mantiene los pendientes mediante nodos enlazados FIFO. |
 | ListaPedidos | Guarda procesados en nodos enlazados, con búsqueda y eliminación. |
-| RegistroPedidos | Asigna números y transfiere pendientes a la lista de procesados. |
+| OperacionPedido | Identifica el número del pedido y el tipo de operación realizada. |
+| PilaOperaciones | Conserva las operaciones más recientes en la cima mediante nodos propios. |
+| RegistroPedidos | Asigna números y mantiene cola, lista e historial coherentes. |
 | ServicioPedidos | Coordina registro, atención y consultas de pedidos. |
 | MenuPedidos | Registro, atención y consultas de pendientes y procesados. |
 | MenuPrincipal | Navega entre los módulos sin perder sus datos. |
@@ -183,7 +185,7 @@ y la recorre en orden de llegada: la cola original no cambia. Esta consulta cues
 O(n) de tiempo y memoria adicional. Buscar por número recorre la cola y, si no encuentra el pedido, la lista de procesados; cuesta O(p + e), con p pendientes y e entregados.
 
 El menú principal ofrece Productos, Pedidos y Salir. El menú de Pedidos ofrece
-registrar, listar pendientes, ver el siguiente, buscar por número, atender el siguiente, listar procesados y volver. Los
+registrar, listar pendientes, ver el siguiente, buscar por número, atender el siguiente, listar procesados, ver historial y volver. Los
 objetos de datos viven durante toda la ejecución, por lo que navegar entre menús
 no elimina información. Un cierre de entrada no guarda pedidos parciales.
 
@@ -213,11 +215,41 @@ también depende de su longitud. Los datos de venta y el total no cambian al ent
 El registro solo acepta nuevos pedidos Pendientes. La búsqueda por número incluye
 ambas estructuras, mientras que siguiente consulta únicamente la cola. Los números
 no se reinician al vaciarla. No existe todavía un estado Cancelado ni una opción
-para revertir una entrega. El historial de operaciones mediante pila queda pendiente.
+para revertir una entrega. El historial permite consultar las acciones realizadas.
+
+## Historial de operaciones mediante pila
+
+OperacionPedido guarda el número positivo del pedido y el tipo de operación:
+Registro o Entrega. El historial conserva acciones, mientras que la cola y la
+lista conservan los pedidos. Consultar productos o pedidos no agrega operaciones.
+
+PilaOperaciones utiliza nodos propios, cada uno con una operación y un puntero al
+siguiente. Apilar enlaza un nodo nuevo antes de la cima. Desapilar libera la cima
+y avanza al siguiente nodo. Ambas operaciones, consultar la cima y consultar la
+cantidad cuestan O(1). No se utiliza std::stack ni otro contenedor prefabricado.
+
+La copia conserva el orden desde la cima hasta el fondo y crea nodos independientes.
+La asignación prepara primero una copia temporal. La destrucción libera los nodos
+iterativamente. Copiar y destruir la pila cuestan O(n).
+
+RegistroPedidos prepara una entrada de historial antes de agregar el pedido a la
+cola o a la lista. Si esa inserción falla, desapila la entrada recién creada y
+propaga el error. El número avanza solo después de registrar el pedido; al entregar,
+se retira el pendiente solo después de guardar el procesado. Los registros rechazados
+y los intentos de atender una cola vacía no generan entradas en el historial.
+
+La opción 7 de Pedidos muestra una copia de la pila y la consume mediante cima y
+desapilar. Cuesta O(n) de tiempo y memoria adicional. La pila original permanece
+intacta, por lo que la consulta puede repetirse sin perder datos. Desapilar una
+entrada de esa copia no deshace una entrega ni elimina un pedido.
+
+Si se registran #1 y #2 y luego se entrega #1, el historial muestra: entrega #1,
+registro #2 y registro #1. Esto demuestra LIFO: la última operación entra en la
+cima y es la primera en consultarse. El historial cubre registros y entregas de
+pedidos; no almacena cambios del catálogo ni fechas, y se pierde al cerrar el programa.
 
 ## Pendientes para la entrega
 
-Pila del historial de operaciones; eliminación de procesados desde el menú;
-consulta conjunta de todos los pedidos.
+Eliminación de procesados desde el menú y consulta conjunta de todos los pedidos.
 Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
 y los demás apartados exigidos por el curso.

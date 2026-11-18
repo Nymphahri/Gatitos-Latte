@@ -18,7 +18,13 @@ void RegistroPedidos::agregar(const dominio::Pedido& pedido)
     if (pedido.estado() != dominio::EstadoPedido::Pendiente) {
         throw std::invalid_argument("Solo se pueden registrar pedidos pendientes.");
     }
-    pendientes_.encolar(pedido);
+    historial_.apilar(dominio::OperacionPedido(pedido.numero(), dominio::TipoOperacionPedido::Registro));
+    try {
+        pendientes_.encolar(pedido);
+    } catch (...) {
+        historial_.desapilar(); // La operacion fallida no debe quedar en el historial.
+        throw;
+    }
     ++proximoNumero_; // Solo avanza cuando el nodo se ha creado correctamente.
 }
 
@@ -48,12 +54,19 @@ int RegistroPedidos::atenderSiguiente()
     dominio::Pedido entregado = *primero;
     entregado.marcarEntregado();
     const int numero = entregado.numero();
-    // Guardar primero: si falla la reserva de memoria, el pendiente no se pierde.
-    procesados_.agregar(entregado);
+    // Preparar historial y lista antes de retirar el pendiente.
+    historial_.apilar(dominio::OperacionPedido(numero, dominio::TipoOperacionPedido::Entrega));
+    try {
+        procesados_.agregar(entregado);
+    } catch (...) {
+        historial_.desapilar();
+        throw;
+    }
     pendientes_.desencolar();
     return numero;
 }
 
 std::size_t RegistroPedidos::cantidadProcesados() const noexcept { return procesados_.cantidad(); }
 estructuras::ListaPedidos RegistroPedidos::procesados() const { return procesados_; }
+estructuras::PilaOperaciones RegistroPedidos::historial() const { return historial_; }
 }

@@ -23,8 +23,10 @@ manualmente, con separación por capas y responsabilidades.
 - Atención del siguiente pedido por orden FIFO y cambio a estado Entregado.
 - Lista enlazada manual de procesados y búsqueda de pendientes o entregados.
 
-Pendientes: historial mediante pila, eliminación de procesados desde el menú
-y consulta conjunta de todos los pedidos.
+- Historial de registros y entregas mediante una pila manual LIFO.
+
+Pendientes: eliminación de procesados desde el menú y consulta conjunta de todos
+los pedidos.
 
 ## Requisitos
 
@@ -49,6 +51,8 @@ disponible; después, en Pedidos, se indica cliente, código del producto y cant
 Cada pedido contiene un producto con su cantidad. El número se asigna automáticamente.
 En Pedidos, la opción 5 entrega el primero de la cola; la opción 6 muestra los
 procesados. La opción 4 permite buscar tanto pendientes como entregados.
+La opción 7 muestra el historial de registros y entregas, con la operación más
+reciente primero. Consultarlo conserva todas las operaciones guardadas.
 
 El precio se introduce en colones, con hasta dos decimales y sin separadores de
 miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.

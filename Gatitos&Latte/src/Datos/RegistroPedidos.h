@@ -2,6 +2,7 @@
 
 #include "../Estructuras/ColaPedidos.h"
 #include "../Estructuras/ListaPedidos.h"
+#include "../Estructuras/PilaOperaciones.h"
 #include <optional>
 
 namespace gatitos::datos
@@ -18,10 +19,12 @@ public:
     int atenderSiguiente(); // Devuelve el numero atendido, o 0 si no hay pendientes.
     [[nodiscard]] std::size_t cantidadProcesados() const noexcept;
     [[nodiscard]] estructuras::ListaPedidos procesados() const;
+    [[nodiscard]] estructuras::PilaOperaciones historial() const;
 
 private:
     estructuras::ColaPedidos pendientes_;
     estructuras::ListaPedidos procesados_;
+    estructuras::PilaOperaciones historial_;
     std::int64_t proximoNumero_ = 1;
 };
 }
