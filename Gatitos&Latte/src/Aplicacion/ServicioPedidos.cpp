@@ -21,4 +21,7 @@ std::size_t ServicioPedidos::cantidadPendientes() const noexcept { return pedido
 std::optional<dominio::Pedido> ServicioPedidos::buscar(int numero) const { return pedidos_.buscar(numero); }
 std::optional<dominio::Pedido> ServicioPedidos::siguiente() const { return pedidos_.siguiente(); }
 estructuras::ColaPedidos ServicioPedidos::pendientes() const { return pedidos_.pendientes(); }
+int ServicioPedidos::atenderSiguiente() { return pedidos_.atenderSiguiente(); }
+std::size_t ServicioPedidos::cantidadProcesados() const noexcept { return pedidos_.cantidadProcesados(); }
+estructuras::ListaPedidos ServicioPedidos::procesados() const { return pedidos_.procesados(); }
 }

@@ -4,7 +4,7 @@
 
 namespace gatitos::dominio
 {
-enum class EstadoPedido { Pendiente };
+enum class EstadoPedido { Pendiente, Entregado };
 
 class Pedido
 {
@@ -17,6 +17,7 @@ public:
     [[nodiscard]] std::int64_t precioUnitarioCentimos() const noexcept;
     [[nodiscard]] std::int64_t totalCentimos() const noexcept;
     [[nodiscard]] EstadoPedido estado() const noexcept;
+    void marcarEntregado() noexcept;
 
 private:
     int numero_;

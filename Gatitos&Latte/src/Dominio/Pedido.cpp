@@ -29,4 +29,5 @@ int Pedido::cantidad() const noexcept { return cantidad_; }
 std::int64_t Pedido::precioUnitarioCentimos() const noexcept { return producto_.precioCentimos(); }
 std::int64_t Pedido::totalCentimos() const noexcept { return totalCentimos_; }
 EstadoPedido Pedido::estado() const noexcept { return estado_; }
+void Pedido::marcarEntregado() noexcept { estado_ = EstadoPedido::Entregado; }
 }

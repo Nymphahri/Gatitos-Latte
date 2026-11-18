@@ -20,8 +20,11 @@ manualmente, con separación por capas y responsabilidades.
 - Registro de pedidos con número automático y cálculo exacto del total.
 - Cola FIFO manual: pendientes, siguiente pedido y consulta por número.
 
-Pendientes: atención y cambio de estado de pedidos, lista de procesados e
-historial mediante pila. La opción de entregar pedidos aún no está disponible.
+- Atención del siguiente pedido por orden FIFO y cambio a estado Entregado.
+- Lista enlazada manual de procesados y búsqueda de pendientes o entregados.
+
+Pendientes: historial mediante pila, eliminación de procesados desde el menú
+y consulta conjunta de todos los pedidos.
 
 ## Requisitos
 
@@ -44,6 +47,8 @@ cd Gatitos-Latte
 El menú principal separa Productos y Pedidos. Primero se registra un producto
 disponible; después, en Pedidos, se indica cliente, código del producto y cantidad.
 Cada pedido contiene un producto con su cantidad. El número se asigna automáticamente.
+En Pedidos, la opción 5 entrega el primero de la cola; la opción 6 muestra los
+procesados. La opción 4 permite buscar tanto pendientes como entregados.
 
 El precio se introduce en colones, con hasta dos decimales y sin separadores de
 miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.
@@ -53,7 +58,7 @@ miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.
 | Carpeta | Responsabilidad |
 |---|---|
 | `Gatitos&Latte/src/Presentacion` | Menú y lectura de datos. |
-| `Gatitos&Latte/src/Aplicacion` | Casos de uso del catálogo. |
+| `Gatitos&Latte/src/Aplicacion` | Casos de uso de productos y pedidos. |
 | `Gatitos&Latte/src/Dominio` | Entidades y validaciones del negocio. |
 | `Gatitos&Latte/src/Datos` | Almacenamiento y consultas. |
 | `Gatitos&Latte/src/Estructuras` | Estructuras de datos manuales. |

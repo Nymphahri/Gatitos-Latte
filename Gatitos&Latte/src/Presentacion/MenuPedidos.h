@@ -16,6 +16,8 @@ private:
     void listar() const;
     void mostrarSiguiente() const;
     void buscar();
+    void atender();
+    void listarProcesados() const;
     void mostrar(const dominio::Pedido& pedido) const;
     aplicacion::ServicioPedidos& servicio_;
     EntradaConsola entrada_;

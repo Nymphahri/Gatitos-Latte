@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Estructuras/ColaPedidos.h"
+#include "../Estructuras/ListaPedidos.h"
 #include <optional>
 
 namespace gatitos::datos
@@ -14,9 +15,13 @@ public:
     [[nodiscard]] std::optional<dominio::Pedido> buscar(int numero) const;
     [[nodiscard]] std::optional<dominio::Pedido> siguiente() const;
     [[nodiscard]] estructuras::ColaPedidos pendientes() const;
+    int atenderSiguiente(); // Devuelve el numero atendido, o 0 si no hay pendientes.
+    [[nodiscard]] std::size_t cantidadProcesados() const noexcept;
+    [[nodiscard]] estructuras::ListaPedidos procesados() const;
 
 private:
     estructuras::ColaPedidos pendientes_;
+    estructuras::ListaPedidos procesados_;
     std::int64_t proximoNumero_ = 1;
 };
 }

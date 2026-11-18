@@ -22,8 +22,9 @@ void MenuPedidos::ejecutar()
     try {
         for (;;) {
             salida_ << "\nPEDIDOS\n1. Registrar pedido\n2. Ver pendientes\n"
-                       "3. Ver siguiente pedido\n4. Buscar pedido por numero\n0. Volver\n";
-            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 4);
+                       "3. Ver siguiente pedido\n4. Buscar pedido por numero\n"
+                       "5. Atender siguiente pedido\n6. Ver procesados\n0. Volver\n";
+            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 6);
             if (opcion == 0) { return; }
             try {
                 switch (opcion) {
@@ -31,6 +32,8 @@ void MenuPedidos::ejecutar()
                 case 2: listar(); break;
                 case 3: mostrarSiguiente(); break;
                 case 4: buscar(); break;
+                case 5: atender(); break;
+                case 6: listarProcesados(); break;
                 }
             } catch (const std::invalid_argument& error) { salida_ << error.what() << '\n'; }
             catch (const std::overflow_error& error) { salida_ << error.what() << '\n'; }
@@ -58,6 +61,7 @@ void MenuPedidos::mostrar(const dominio::Pedido& pedido) const
     mostrarImporte(salida_, pedido.totalCentimos());
     switch (pedido.estado()) {
     case dominio::EstadoPedido::Pendiente: salida_ << "\nEstado: Pendiente\n"; break;
+    case dominio::EstadoPedido::Entregado: salida_ << "\nEstado: Entregado\n"; break;
     }
 }
 
@@ -75,6 +79,27 @@ void MenuPedidos::mostrarSiguiente() const
     const auto pedido = servicio_.siguiente();
     if (pedido) { salida_ << "Siguiente pedido por atender:\n"; mostrar(*pedido); }
     else { salida_ << "No hay pedidos pendientes.\n"; }
+}
+
+void MenuPedidos::atender()
+{
+    const int numero = servicio_.atenderSiguiente();
+    if (numero == 0) { salida_ << "No hay pedidos pendientes.\n"; return; }
+    salida_ << "Pedido entregado correctamente.\n";
+    mostrar(*servicio_.buscar(numero));
+}
+
+void MenuPedidos::listarProcesados() const
+{
+    auto copia = servicio_.procesados();
+    if (copia.vacia()) { salida_ << "No hay pedidos procesados.\n"; return; }
+    salida_ << "Pedidos procesados en orden de atencion:\n";
+    // Eliminar de esta copia permite recorrerla sin alterar los datos guardados.
+    while (!copia.vacia()) {
+        const auto* pedido = copia.primero();
+        mostrar(*pedido);
+        copia.eliminar(pedido->numero());
+    }
 }
 
 void MenuPedidos::buscar()

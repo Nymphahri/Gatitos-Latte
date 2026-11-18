@@ -14,6 +14,9 @@ public:
     [[nodiscard]] std::optional<dominio::Pedido> buscar(int numero) const;
     [[nodiscard]] std::optional<dominio::Pedido> siguiente() const;
     [[nodiscard]] estructuras::ColaPedidos pendientes() const;
+    int atenderSiguiente(); // Devuelve el numero atendido, o 0 si no hay pendientes.
+    [[nodiscard]] std::size_t cantidadProcesados() const noexcept;
+    [[nodiscard]] estructuras::ListaPedidos procesados() const;
 
 private:
     const datos::CatalogoProductos& productos_;

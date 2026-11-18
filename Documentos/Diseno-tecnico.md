@@ -4,8 +4,9 @@
 
 La aplicación permite registrar, listar, ordenar y consultar productos en una
 consola. También registra pedidos y mantiene una cola FIFO de pendientes.
-Los datos permanecen en memoria durante la ejecución. Están pendientes la
-atención de pedidos, la lista de procesados y la pila del historial.
+Permite atender el siguiente pedido y conservarlo como Entregado en una lista
+enlazada. Los datos permanecen en memoria durante la ejecución. Está pendiente
+la pila del historial.
 
 ## Arquitectura
 
@@ -24,9 +25,10 @@ Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entrad
 | MenuCatalogo | Presenta opciones y resultados del catálogo. |
 | Pedido | Guarda cliente, producto, cantidad, precio de venta, total y estado. |
 | ColaPedidos | Mantiene los pendientes mediante nodos enlazados FIFO. |
-| RegistroPedidos | Conserva la cola y asigna la secuencia de números. |
-| ServicioPedidos | Consulta el producto y coordina el registro del pedido. |
-| MenuPedidos | Registro y consultas de pedidos pendientes. |
+| ListaPedidos | Guarda procesados en nodos enlazados, con búsqueda y eliminación. |
+| RegistroPedidos | Asigna números y transfiere pendientes a la lista de procesados. |
+| ServicioPedidos | Coordina registro, atención y consultas de pedidos. |
+| MenuPedidos | Registro, atención y consultas de pendientes y procesados. |
 | MenuPrincipal | Navega entre los módulos sin perder sus datos. |
 
 ## Producto e importes
@@ -178,21 +180,44 @@ libera sus nodos al destruirse y realiza copias independientes.
 
 Ver el siguiente pedido no lo retira. Listar pendientes crea una copia de la cola
 y la recorre en orden de llegada: la cola original no cambia. Esta consulta cuesta
-O(n) de tiempo y memoria adicional. Buscar por número recorre la cola en O(n).
+O(n) de tiempo y memoria adicional. Buscar por número recorre la cola y, si no encuentra el pedido, la lista de procesados; cuesta O(p + e), con p pendientes y e entregados.
 
 El menú principal ofrece Productos, Pedidos y Salir. El menú de Pedidos ofrece
-registrar, listar pendientes, ver el siguiente, buscar por número y volver. Los
+registrar, listar pendientes, ver el siguiente, buscar por número, atender el siguiente, listar procesados y volver. Los
 objetos de datos viven durante toda la ejecución, por lo que navegar entre menús
 no elimina información. Un cierre de entrada no guarda pedidos parciales.
 
-La cola ya dispone de desencolar, pero no se expone todavía una opción para
-entregar pedidos. Se conectará al procesamiento cuando exista la lista de pedidos
-procesados y el registro de operaciones. Actualmente todos los pedidos permanecen
-Pendientes; no se implementan todavía estados Entregado o Cancelado.
+## Atención y lista enlazada de procesados
+
+La opción Atender siguiente toma exclusivamente el frente de la cola FIFO. Se
+copia el pedido, se marca Entregado y se agrega al final de ListaPedidos. Solo
+después de guardar esa copia se desencola el original. Si falla la copia o la
+reserva del nodo, el pedido continúa pendiente. Una cola vacía no produce cambios.
+La operación devuelve el número atendido, o 0 cuando no hay pendientes.
+
+ListaPedidos es una lista simplemente enlazada: cada nodo posee un Pedido y un
+puntero al siguiente. Primero y último identifican sus extremos; agregar al final
+conserva el orden de atención y cuesta O(1). Buscar y eliminar por número cuestan
+O(n). Eliminar ajusta los enlaces y los extremos antes de liberar el nodo. La
+estructura implementa eliminación, pero el menú aún no permite borrar procesados.
+
+La lista libera todos sus nodos iterativamente. Su constructor de copia y su
+asignación crean nodos independientes. La asignación prepara una copia antes de
+reemplazar el contenido para conservarlo si la reserva de memoria falla.
+
+Ver procesados recorre una copia, eliminando su primer nodo tras mostrarlo. Esta
+consulta cuesta O(n) de tiempo y memoria adicional y no modifica la lista original.
+Los costos suponen tamaño constante de los datos de cada Pedido; copiar sus cadenas
+también depende de su longitud. Los datos de venta y el total no cambian al entregar.
+
+El registro solo acepta nuevos pedidos Pendientes. La búsqueda por número incluye
+ambas estructuras, mientras que siguiente consulta únicamente la cola. Los números
+no se reinician al vaciarla. No existe todavía un estado Cancelado ni una opción
+para revertir una entrega. El historial de operaciones mediante pila queda pendiente.
 
 ## Pendientes para la entrega
 
-Procesamiento y cambio de estado de pedidos; lista enlazada de pedidos procesados;
-pila del historial de operaciones.
+Pila del historial de operaciones; eliminación de procesados desde el menú;
+consulta conjunta de todos los pedidos.
 Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
 y los demás apartados exigidos por el curso.
