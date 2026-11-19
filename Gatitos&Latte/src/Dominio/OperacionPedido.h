@@ -2,7 +2,7 @@
 
 namespace gatitos::dominio
 {
-enum class TipoOperacionPedido { Registro, Entrega };
+enum class TipoOperacionPedido { Registro, Entrega, Eliminacion };
 
 class OperacionPedido
 {

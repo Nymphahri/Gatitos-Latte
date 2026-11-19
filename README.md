@@ -19,14 +19,11 @@ manualmente, con separación por capas y responsabilidades.
 - Árbol binario por código, con inserción, búsqueda y recorrido inorden.
 - Registro de pedidos con número automático y cálculo exacto del total.
 - Cola FIFO manual: pendientes, siguiente pedido y consulta por número.
-
 - Atención del siguiente pedido por orden FIFO y cambio a estado Entregado.
 - Lista enlazada manual de procesados y búsqueda de pendientes o entregados.
-
-- Historial de registros y entregas mediante una pila manual LIFO.
-
-Pendientes: eliminación de procesados desde el menú y consulta conjunta de todos
-los pedidos.
+- Historial de registros, entregas y eliminaciones mediante una pila manual LIFO.
+- Consulta conjunta de pedidos, agrupados en pendientes y entregados.
+- Eliminación de pedidos procesados por número, con confirmación e historial.
 
 ## Requisitos
 
@@ -51,8 +48,11 @@ disponible; después, en Pedidos, se indica cliente, código del producto y cant
 Cada pedido contiene un producto con su cantidad. El número se asigna automáticamente.
 En Pedidos, la opción 5 entrega el primero de la cola; la opción 6 muestra los
 procesados. La opción 4 permite buscar tanto pendientes como entregados.
-La opción 7 muestra el historial de registros y entregas, con la operación más
+La opción 7 muestra el historial de operaciones, con la operación más
 reciente primero. Consultarlo conserva todas las operaciones guardadas.
+La opción 8 muestra todos los pedidos guardados, agrupados por estado. La opción 9
+elimina un procesado después de mostrarlo y pedir confirmación. Los pendientes no
+se pueden eliminar. El historial conserva la eliminación y el número no se reutiliza.
 
 El precio se introduce en colones, con hasta dos decimales y sin separadores de
 miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.

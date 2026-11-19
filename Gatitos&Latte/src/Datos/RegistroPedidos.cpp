@@ -69,4 +69,13 @@ int RegistroPedidos::atenderSiguiente()
 std::size_t RegistroPedidos::cantidadProcesados() const noexcept { return procesados_.cantidad(); }
 estructuras::ListaPedidos RegistroPedidos::procesados() const { return procesados_; }
 estructuras::PilaOperaciones RegistroPedidos::historial() const { return historial_; }
+
+bool RegistroPedidos::eliminarProcesado(int numero)
+{
+    if (procesados_.buscar(numero) == nullptr) { return false; }
+    // Si no se puede guardar la operacion, el pedido permanece en la lista.
+    historial_.apilar(dominio::OperacionPedido(numero, dominio::TipoOperacionPedido::Eliminacion));
+    procesados_.eliminar(numero); // No reserva memoria ni lanza excepciones.
+    return true;
+}
 }

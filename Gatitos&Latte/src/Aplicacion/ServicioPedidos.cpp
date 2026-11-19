@@ -25,4 +25,5 @@ int ServicioPedidos::atenderSiguiente() { return pedidos_.atenderSiguiente(); }
 std::size_t ServicioPedidos::cantidadProcesados() const noexcept { return pedidos_.cantidadProcesados(); }
 estructuras::ListaPedidos ServicioPedidos::procesados() const { return pedidos_.procesados(); }
 estructuras::PilaOperaciones ServicioPedidos::historial() const { return pedidos_.historial(); }
+bool ServicioPedidos::eliminarProcesado(int numero) { return pedidos_.eliminarProcesado(numero); }
 }

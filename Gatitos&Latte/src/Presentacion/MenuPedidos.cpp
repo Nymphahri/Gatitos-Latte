@@ -23,8 +23,9 @@ void MenuPedidos::ejecutar()
         for (;;) {
             salida_ << "\nPEDIDOS\n1. Registrar pedido\n2. Ver pendientes\n"
                        "3. Ver siguiente pedido\n4. Buscar pedido por numero\n"
-                       "5. Atender siguiente pedido\n6. Ver procesados\n7. Ver historial\n0. Volver\n";
-            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 7);
+                       "5. Atender siguiente pedido\n6. Ver procesados\n7. Ver historial\n"
+                       "8. Ver todos los pedidos\n9. Eliminar pedido procesado\n0. Volver\n";
+            const int opcion = entrada_.leerEntero("Seleccione una opcion: ", 0, 9);
             if (opcion == 0) { return; }
             try {
                 switch (opcion) {
@@ -35,11 +36,13 @@ void MenuPedidos::ejecutar()
                 case 5: atender(); break;
                 case 6: listarProcesados(); break;
                 case 7: mostrarHistorial(); break;
+                case 8: listarTodos(); break;
+                case 9: eliminarProcesado(); break;
                 }
             } catch (const std::invalid_argument& error) { salida_ << error.what() << '\n'; }
             catch (const std::overflow_error& error) { salida_ << error.what() << '\n'; }
         }
-    } catch (const FinEntrada&) { salida_ << "\nEntrada cerrada. No se guardan pedidos incompletos.\n"; }
+    } catch (const FinEntrada&) { salida_ << "\nEntrada cerrada.\n"; }
 }
 
 void MenuPedidos::registrar()
@@ -114,8 +117,42 @@ void MenuPedidos::mostrarHistorial() const
         switch (operacion->tipo()) {
         case dominio::TipoOperacionPedido::Registro: salida_ << "registrado\n"; break;
         case dominio::TipoOperacionPedido::Entrega: salida_ << "entregado\n"; break;
+        case dominio::TipoOperacionPedido::Eliminacion: salida_ << "eliminado de procesados\n"; break;
         }
         copia.desapilar(); // Solo se consume la copia utilizada para la consulta.
+    }
+}
+
+void MenuPedidos::listarTodos() const
+{
+    if (servicio_.cantidadPendientes() == 0 && servicio_.cantidadProcesados() == 0) {
+        salida_ << "No hay pedidos guardados.\n";
+        return;
+    }
+    salida_ << "Todos los pedidos guardados, agrupados por estado:\n";
+    listar();
+    listarProcesados();
+}
+
+void MenuPedidos::eliminarProcesado()
+{
+    const int numero = entrada_.leerEntero("Numero del pedido procesado: ", 1, (std::numeric_limits<int>::max)());
+    const auto pedido = servicio_.buscar(numero);
+    if (!pedido) { salida_ << "No se encontro un pedido con ese numero.\n"; return; }
+    if (pedido->estado() != dominio::EstadoPedido::Entregado) {
+        salida_ << "Solo se pueden eliminar pedidos procesados. El pedido sigue pendiente.\n";
+        return;
+    }
+    mostrar(*pedido);
+    salida_ << "Se quitara este pedido de procesados. Su historial se conservara.\n";
+    if (entrada_.leerEntero("Confirmar eliminacion (1 = Si, 0 = No): ", 0, 1) == 0) {
+        salida_ << "Eliminacion cancelada.\n";
+        return;
+    }
+    if (servicio_.eliminarProcesado(numero)) {
+        salida_ << "Pedido eliminado de procesados correctamente.\n";
+    } else {
+        salida_ << "No se encontro el pedido procesado.\n";
     }
 }
 

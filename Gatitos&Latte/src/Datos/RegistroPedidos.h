@@ -20,6 +20,7 @@ public:
     [[nodiscard]] std::size_t cantidadProcesados() const noexcept;
     [[nodiscard]] estructuras::ListaPedidos procesados() const;
     [[nodiscard]] estructuras::PilaOperaciones historial() const;
+    bool eliminarProcesado(int numero);
 
 private:
     estructuras::ColaPedidos pendientes_;

@@ -5,7 +5,7 @@
 La aplicación permite registrar, listar, ordenar y consultar productos en una
 consola. También registra pedidos y mantiene una cola FIFO de pendientes.
 Permite atender el siguiente pedido y conservarlo como Entregado en una lista
-enlazada. Una pila conserva el historial de registros y entregas. Los datos
+enlazada. Una pila conserva el historial de registros, entregas y eliminaciones. Los datos
 permanecen en memoria durante la ejecución.
 
 ## Arquitectura
@@ -185,7 +185,7 @@ y la recorre en orden de llegada: la cola original no cambia. Esta consulta cues
 O(n) de tiempo y memoria adicional. Buscar por número recorre la cola y, si no encuentra el pedido, la lista de procesados; cuesta O(p + e), con p pendientes y e entregados.
 
 El menú principal ofrece Productos, Pedidos y Salir. El menú de Pedidos ofrece
-registrar, listar pendientes, ver el siguiente, buscar por número, atender el siguiente, listar procesados, ver historial y volver. Los
+registrar, listar pendientes, ver el siguiente, buscar por número, atender el siguiente, listar procesados, ver historial, ver todos, eliminar procesados y volver. Los
 objetos de datos viven durante toda la ejecución, por lo que navegar entre menús
 no elimina información. Un cierre de entrada no guarda pedidos parciales.
 
@@ -201,7 +201,7 @@ ListaPedidos es una lista simplemente enlazada: cada nodo posee un Pedido y un
 puntero al siguiente. Primero y último identifican sus extremos; agregar al final
 conserva el orden de atención y cuesta O(1). Buscar y eliminar por número cuestan
 O(n). Eliminar ajusta los enlaces y los extremos antes de liberar el nodo. La
-estructura implementa eliminación, pero el menú aún no permite borrar procesados.
+opción 9 del menú permite eliminar un procesado por número, previa confirmación.
 
 La lista libera todos sus nodos iterativamente. Su constructor de copia y su
 asignación crean nodos independientes. La asignación prepara una copia antes de
@@ -220,7 +220,7 @@ para revertir una entrega. El historial permite consultar las acciones realizada
 ## Historial de operaciones mediante pila
 
 OperacionPedido guarda el número positivo del pedido y el tipo de operación:
-Registro o Entrega. El historial conserva acciones, mientras que la cola y la
+Registro, Entrega o Eliminacion. El historial conserva acciones, mientras que la cola y la
 lista conservan los pedidos. Consultar productos o pedidos no agrega operaciones.
 
 PilaOperaciones utiliza nodos propios, cada uno con una operación y un puntero al
@@ -246,10 +246,33 @@ entrada de esa copia no deshace una entrega ni elimina un pedido.
 Si se registran #1 y #2 y luego se entrega #1, el historial muestra: entrega #1,
 registro #2 y registro #1. Esto demuestra LIFO: la última operación entra en la
 cima y es la primera en consultarse. El historial cubre registros y entregas de
-pedidos; no almacena cambios del catálogo ni fechas, y se pierde al cerrar el programa.
+pedidos y sus eliminaciones; no almacena cambios del catálogo ni fechas, y se pierde al cerrar el programa.
+
+## Consulta conjunta y eliminación de procesados
+
+La opción 8 muestra todos los pedidos que permanecen guardados, agrupados por
+estado: pendientes en orden de llegada y procesados en orden de atención. Reutiliza
+las consultas de ambas estructuras y no cambia su contenido. No impone un orden
+global por número. Su costo es O(p + e), con p pendientes y e procesados, y utiliza
+copias temporales para recorrerlos. Si ambas estructuras están vacías, lo informa.
+
+La opción 9 busca por número, muestra el pedido y solicita 1 para confirmar o 0
+para cancelar. Solo admite pedidos Entregados. Un pendiente, un número inexistente,
+la cancelación o el cierre de entrada antes de confirmar no eliminan datos ni
+agregan operaciones al historial.
+
+RegistroPedidos comprueba que el pedido existe en la lista y apila una operación
+Eliminacion antes de retirarlo. Si falla la reserva del nodo del historial, el
+pedido permanece guardado. La eliminación de la lista no lanza excepciones y
+ajusta los enlaces y extremos. El costo de la operación completa es O(e).
+
+El pedido eliminado deja de aparecer en búsquedas y listados. El historial
+conserva su registro, entrega y eliminación; no es un respaldo completo para
+reconstruirlo. La secuencia de números no retrocede. Eliminar un procesado tampoco
+modifica la cola pendiente ni representa cancelar o deshacer la entrega.
 
 ## Pendientes para la entrega
 
-Eliminación de procesados desde el menú y consulta conjunta de todos los pedidos.
+Revisar el cumplimiento final contra la consigna y preparar la defensa del código.
 Completar el informe con objetivos, requerimientos, capturas reales, conclusiones
 y los demás apartados exigidos por el curso.
