@@ -3,8 +3,8 @@
 
 namespace
 {
-bool vaAntes(const gatitos::dominio::Producto& primero,
-             const gatitos::dominio::Producto& segundo,
+bool vaAntes(const gatitos::entidades::Producto& primero,
+             const gatitos::entidades::Producto& segundo,
              gatitos::algoritmos::CriterioOrden criterio)
 {
     using gatitos::algoritmos::CriterioOrden;
@@ -40,7 +40,14 @@ void ordenarPorInsercion(estructuras::ArregloProductos& productos, CriterioOrden
     }
 }
 
-const dominio::Producto* buscarBinariaPorCodigo(const estructuras::ArregloProductos& productos, int codigo)
+const entidades::Producto* buscarSecuencialPorCodigo(const estructuras::ArregloProductos& productos, int codigo)
+{
+    for (std::size_t i = 0; i < productos.tamano(); ++i) {
+        if (productos.en(i).codigo() == codigo) { return &productos.en(i); }
+    }
+    return nullptr;
+}
+const entidades::Producto* buscarBinariaPorCodigo(const estructuras::ArregloProductos& productos, int codigo)
 {
     std::size_t inicio = 0;
     std::size_t fin = productos.tamano(); // Limite exclusivo: también funciona con arreglo vacío.

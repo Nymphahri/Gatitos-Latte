@@ -13,13 +13,14 @@ public:
     void ejecutar();
 
 private:
+    void consultarBusqueda();
+    void consultarArbol();
     void registrar();
     void listar() const;
     void buscar(bool binaria = false);
     void ordenar();
     void buscarEnArbol();
     void mostrarInorden() const;
-    void mostrar(const dominio::Producto& producto) const;
 
     aplicacion::ServicioProductos& servicio_;
     EntradaConsola entrada_;

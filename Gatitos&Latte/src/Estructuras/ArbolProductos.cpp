@@ -5,12 +5,12 @@ namespace gatitos::estructuras
 {
 ArbolProductos::~ArbolProductos() { liberar(raiz_); }
 
-void ArbolProductos::insertar(const dominio::Producto& producto)
+void ArbolProductos::insertar(const entidades::Producto& producto)
 {
     insertarNodo(raiz_, producto);
 }
 
-void ArbolProductos::insertarNodo(Nodo*& nodo, const dominio::Producto& producto)
+void ArbolProductos::insertarNodo(Nodo*& nodo, const entidades::Producto& producto)
 {
     if (nodo == nullptr) {
         // Solo enlaza el nodo cuando la reserva se completa correctamente.
@@ -22,7 +22,7 @@ void ArbolProductos::insertarNodo(Nodo*& nodo, const dominio::Producto& producto
     else { throw std::invalid_argument("Ya existe un producto con ese codigo en el arbol."); }
 }
 
-const dominio::Producto* ArbolProductos::buscar(int codigo) const noexcept
+const entidades::Producto* ArbolProductos::buscar(int codigo) const noexcept
 {
     const Nodo* actual = raiz_;
     while (actual != nullptr) {

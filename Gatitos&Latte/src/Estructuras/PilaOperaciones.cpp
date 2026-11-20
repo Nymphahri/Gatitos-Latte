@@ -37,7 +37,7 @@ PilaOperaciones& PilaOperaciones::operator=(const PilaOperaciones& otra)
     return *this;
 }
 
-void PilaOperaciones::apilar(const dominio::OperacionPedido& operacion)
+void PilaOperaciones::apilar(const entidades::OperacionPedido& operacion)
 {
     Nodo* nuevo = new Nodo(operacion);
     nuevo->siguiente = cima_;
@@ -55,7 +55,7 @@ bool PilaOperaciones::desapilar() noexcept
     return true;
 }
 
-const dominio::OperacionPedido* PilaOperaciones::cima() const noexcept
+const entidades::OperacionPedido* PilaOperaciones::cima() const noexcept
 {
     return cima_ != nullptr ? &cima_->operacion : nullptr;
 }

@@ -12,13 +12,13 @@ int RegistroPedidos::siguienteNumero() const
     return static_cast<int>(proximoNumero_);
 }
 
-void RegistroPedidos::agregar(const dominio::Pedido& pedido)
+void RegistroPedidos::agregar(const entidades::Pedido& pedido)
 {
     if (pedido.numero() != siguienteNumero()) { throw std::invalid_argument("Numero de pedido fuera de secuencia."); }
-    if (pedido.estado() != dominio::EstadoPedido::Pendiente) {
+    if (pedido.estado() != entidades::EstadoPedido::Pendiente) {
         throw std::invalid_argument("Solo se pueden registrar pedidos pendientes.");
     }
-    historial_.apilar(dominio::OperacionPedido(pedido.numero(), dominio::TipoOperacionPedido::Registro));
+    historial_.apilar(entidades::OperacionPedido(pedido.numero(), entidades::TipoOperacionPedido::Registro));
     try {
         pendientes_.encolar(pedido);
     } catch (...) {
@@ -30,7 +30,7 @@ void RegistroPedidos::agregar(const dominio::Pedido& pedido)
 
 std::size_t RegistroPedidos::cantidadPendientes() const noexcept { return pendientes_.cantidad(); }
 
-std::optional<dominio::Pedido> RegistroPedidos::buscar(int numero) const
+std::optional<entidades::Pedido> RegistroPedidos::buscar(int numero) const
 {
     const auto* pedido = pendientes_.buscar(numero);
     if (pedido == nullptr) { pedido = procesados_.buscar(numero); }
@@ -38,7 +38,7 @@ std::optional<dominio::Pedido> RegistroPedidos::buscar(int numero) const
     return std::nullopt;
 }
 
-std::optional<dominio::Pedido> RegistroPedidos::siguiente() const
+std::optional<entidades::Pedido> RegistroPedidos::siguiente() const
 {
     const auto* pedido = pendientes_.frente();
     if (pedido != nullptr) { return *pedido; }
@@ -51,11 +51,11 @@ int RegistroPedidos::atenderSiguiente()
 {
     const auto* primero = pendientes_.frente();
     if (primero == nullptr) { return 0; }
-    dominio::Pedido entregado = *primero;
+    entidades::Pedido entregado = *primero;
     entregado.marcarEntregado();
     const int numero = entregado.numero();
     // Preparar historial y lista antes de retirar el pendiente.
-    historial_.apilar(dominio::OperacionPedido(numero, dominio::TipoOperacionPedido::Entrega));
+    historial_.apilar(entidades::OperacionPedido(numero, entidades::TipoOperacionPedido::Entrega));
     try {
         procesados_.agregar(entregado);
     } catch (...) {
@@ -74,8 +74,9 @@ bool RegistroPedidos::eliminarProcesado(int numero)
 {
     if (procesados_.buscar(numero) == nullptr) { return false; }
     // Si no se puede guardar la operacion, el pedido permanece en la lista.
-    historial_.apilar(dominio::OperacionPedido(numero, dominio::TipoOperacionPedido::Eliminacion));
+    historial_.apilar(entidades::OperacionPedido(numero, entidades::TipoOperacionPedido::Eliminacion));
     procesados_.eliminar(numero); // No reserva memoria ni lanza excepciones.
     return true;
 }
+std::size_t RegistroPedidos::cantidadHistorial() const noexcept { return historial_.cantidad(); }
 }

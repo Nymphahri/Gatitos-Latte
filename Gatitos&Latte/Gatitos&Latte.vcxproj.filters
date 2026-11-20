@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Gatitos&amp;Latte.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Presentacion" />
     <Filter Include="Aplicacion" />
-    <Filter Include="Dominio" />
     <Filter Include="Datos" />
     <Filter Include="Estructuras" />
     <Filter Include="Algoritmos" />
     <Filter Include="Documentacion" />
+    <Filter Include="Presentacion\UI">
+      <UniqueIdentifier>{75eff4f5-7ab8-4420-bd47-2cab49779eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entidades" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -34,18 +18,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Dominio\Producto.cpp">
-      <Filter>Dominio</Filter>
+    <ClCompile Include="src\Entidades\Producto.cpp">
+      <Filter>Entidades</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Presentacion\UI\EstiloConsola.cpp">
+      <Filter>Presentacion\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\Producto.h">
-      <Filter>Dominio</Filter>
+    <ClInclude Include="src\Entidades\Producto.h">
+      <Filter>Entidades</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="src\Presentacion\UI\EstiloConsola.h">
+      <Filter>Presentacion\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Datos\CatalogoProductos.h">
@@ -123,13 +109,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\Pedido.h">
-      <Filter>Dominio</Filter>
+    <ClInclude Include="src\Entidades\Pedido.h">
+      <Filter>Entidades</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Dominio\Pedido.cpp">
-      <Filter>Dominio</Filter>
+    <ClCompile Include="src\Entidades\Pedido.cpp">
+      <Filter>Entidades</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,15 +169,30 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\ListaPedidos.h"><Filter>Estructuras</Filter></ClInclude>
-    <ClCompile Include="src\Estructuras\ListaPedidos.cpp"><Filter>Estructuras</Filter></ClCompile>
+    <ClInclude Include="src\Estructuras\ListaPedidos.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+    <ClCompile Include="src\Estructuras\ListaPedidos.cpp">
+      <Filter>Estructuras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\OperacionPedido.h"><Filter>Dominio</Filter></ClInclude>
-    <ClCompile Include="src\Dominio\OperacionPedido.cpp"><Filter>Dominio</Filter></ClCompile>
+    <ClInclude Include="src\Entidades\OperacionPedido.h">
+      <Filter>Entidades</Filter>
+    </ClInclude>
+    <ClCompile Include="src\Entidades\OperacionPedido.cpp">
+      <Filter>Entidades</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\PilaOperaciones.h"><Filter>Estructuras</Filter></ClInclude>
-    <ClCompile Include="src\Estructuras\PilaOperaciones.cpp"><Filter>Estructuras</Filter></ClCompile>
+    <ClInclude Include="src\Estructuras\PilaOperaciones.h">
+      <Filter>Estructuras</Filter>
+    </ClInclude>
+    <ClCompile Include="src\Estructuras\PilaOperaciones.cpp">
+      <Filter>Estructuras</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Gatitos&amp;Latte.cpp" />
   </ItemGroup>
 </Project>

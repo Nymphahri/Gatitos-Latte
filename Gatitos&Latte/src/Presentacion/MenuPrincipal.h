@@ -13,6 +13,8 @@ public:
     void ejecutar();
 
 private:
+    aplicacion::ServicioProductos& servicioProductos_;
+    aplicacion::ServicioPedidos& servicioPedidos_;
     MenuCatalogo catalogo_;
     MenuPedidos pedidos_;
     EntradaConsola entrada_;

@@ -10,7 +10,7 @@ permanecen en memoria durante la ejecución.
 
 ## Arquitectura
 
-Presentacion llama a Aplicacion. Aplicacion utiliza Dominio y Datos. Datos utiliza
+Presentacion llama a Aplicacion. Aplicacion utiliza Entidades y Datos. Datos utiliza
 Estructuras y Algoritmos. Las estructuras y entidades no imprimen ni leen entradas.
 
 | Componente | Responsabilidad |

@@ -142,9 +142,6 @@
       <EnableSegmentHeap>true</EnableSegmentHeap>
     </Manifest>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Gatitos&amp;Latte.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
@@ -152,14 +149,12 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Dominio\Producto.cpp" />
+    <ClCompile Include="src\Presentacion\UI\EstiloConsola.cpp" />
+    <ClCompile Include="src\Entidades\Producto.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\Producto.h" />
-  </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="src\Presentacion\UI\EstiloConsola.h" />
+    <ClInclude Include="src\Entidades\Producto.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Datos\CatalogoProductos.h" />
@@ -207,10 +202,10 @@
     <ClCompile Include="src\Estructuras\ArbolProductos.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\Pedido.h" />
+    <ClInclude Include="src\Entidades\Pedido.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Dominio\Pedido.cpp" />
+    <ClCompile Include="src\Entidades\Pedido.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Estructuras\ColaPedidos.h" />
@@ -243,15 +238,24 @@
     <ClCompile Include="src\Presentacion\MenuPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\ListaPedidos.h"></ClInclude>
-    <ClCompile Include="src\Estructuras\ListaPedidos.cpp"></ClCompile>
+    <ClInclude Include="src\Estructuras\ListaPedidos.h">
+    </ClInclude>
+    <ClCompile Include="src\Estructuras\ListaPedidos.cpp">
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Dominio\OperacionPedido.h"></ClInclude>
-    <ClCompile Include="src\Dominio\OperacionPedido.cpp"></ClCompile>
+    <ClInclude Include="src\Entidades\OperacionPedido.h">
+    </ClInclude>
+    <ClCompile Include="src\Entidades\OperacionPedido.cpp">
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Estructuras\PilaOperaciones.h"></ClInclude>
-    <ClCompile Include="src\Estructuras\PilaOperaciones.cpp"></ClCompile>
+    <ClInclude Include="src\Estructuras\PilaOperaciones.h">
+    </ClInclude>
+    <ClCompile Include="src\Estructuras\PilaOperaciones.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Gatitos&amp;Latte.cpp" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 class Producto
 {

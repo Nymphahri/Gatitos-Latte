@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Dominio/Producto.h"
+#include "../Entidades/Producto.h"
 #include "../Estructuras/ArregloProductos.h"
 #include "../Algoritmos/AlgoritmosProductos.h"
 #include <optional>
@@ -11,18 +11,20 @@ namespace gatitos::datos
 class CatalogoProductos
 {
 public:
-    void agregar(const dominio::Producto& producto);
+    void agregar(const entidades::Producto& producto);
     [[nodiscard]] std::size_t cantidad() const noexcept;
-    [[nodiscard]] const dominio::Producto& en(std::size_t indice) const;
-    [[nodiscard]] std::optional<dominio::Producto> buscarPorCodigo(int codigo) const;
-    [[nodiscard]] std::optional<dominio::Producto> buscarBinaria(int codigo);
+    [[nodiscard]] const entidades::Producto& en(std::size_t indice) const;
+    [[nodiscard]] std::optional<entidades::Producto> buscarPorCodigo(int codigo) const;
+    [[nodiscard]] std::optional<entidades::Producto> buscarBinaria(int codigo);
+
     void ordenar(algoritmos::CriterioOrden criterio);
 
-    [[nodiscard]] std::optional<dominio::Producto> buscarEnArbol(int codigo) const;
+    [[nodiscard]] std::optional<entidades::Producto> buscarEnArbol(int codigo) const;
     [[nodiscard]] estructuras::ArregloProductos productosInorden() const;
 
 private:
     estructuras::ArregloProductos productos_;
+
     // Se destruye antes que productos_: sus nodos no poseen los productos.
     estructuras::ArbolProductos arbol_;
     bool ordenadoPorCodigo_ = true;

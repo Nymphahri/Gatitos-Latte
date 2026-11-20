@@ -1,7 +1,7 @@
 #include "OperacionPedido.h"
 #include <stdexcept>
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 OperacionPedido::OperacionPedido(int numeroPedido, TipoOperacionPedido tipo)
     : numeroPedido_(numeroPedido), tipo_(tipo)

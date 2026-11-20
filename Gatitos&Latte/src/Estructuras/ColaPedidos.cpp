@@ -33,7 +33,7 @@ ColaPedidos& ColaPedidos::operator=(const ColaPedidos& otra)
     return *this;
 }
 
-void ColaPedidos::encolar(const dominio::Pedido& pedido)
+void ColaPedidos::encolar(const entidades::Pedido& pedido)
 {
     Nodo* nuevo = new Nodo(pedido);
     if (final_ != nullptr) { final_->siguiente = nuevo; }
@@ -53,17 +53,17 @@ bool ColaPedidos::desencolar() noexcept
     return true;
 }
 
-const dominio::Pedido* ColaPedidos::frente() const noexcept
+const entidades::Pedido* ColaPedidos::frente() const noexcept
 {
     return frente_ != nullptr ? &frente_->pedido : nullptr;
 }
 
-const dominio::Pedido* ColaPedidos::final() const noexcept
+const entidades::Pedido* ColaPedidos::final() const noexcept
 {
     return final_ != nullptr ? &final_->pedido : nullptr;
 }
 
-const dominio::Pedido* ColaPedidos::buscar(int numero) const noexcept
+const entidades::Pedido* ColaPedidos::buscar(int numero) const noexcept
 {
     for (const Nodo* nodo = frente_; nodo != nullptr; nodo = nodo->siguiente) {
         if (nodo->pedido.numero() == numero) { return &nodo->pedido; }

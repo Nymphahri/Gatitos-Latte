@@ -18,7 +18,7 @@ void validarPrecio(std::int64_t precio)
 }
 }
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 Producto::Producto(int codigo, std::string nombre, std::string categoria,
                    std::int64_t precioCentimos, bool disponible)

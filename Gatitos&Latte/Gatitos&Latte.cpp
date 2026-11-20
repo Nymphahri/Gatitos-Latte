@@ -1,10 +1,13 @@
 #include "src/Presentacion/MenuPrincipal.h"
+#include "src/Presentacion/UI/EstiloConsola.h"
 #include <exception>
 #include <iostream>
 
 int main()
 {
-    try {
+    try
+    {
+        gatitos::presentacion::ui::EstiloConsola::configurar();
         gatitos::datos::CatalogoProductos catalogo;
         gatitos::datos::RegistroPedidos registro;
         gatitos::aplicacion::ServicioProductos productos(catalogo);
@@ -12,8 +15,10 @@ int main()
         gatitos::presentacion::MenuPrincipal menu(productos, pedidos, std::cin, std::cout);
         menu.ejecutar();
         return 0;
-    } catch (const std::exception& error) {
-        std::cerr << "No se pudo continuar: " << error.what() << '\n';
+
+    } catch (const std::exception& error)
+    {
+        std::cerr << "  No se pudo continuar: " << error.what() << '\n';
         return 1;
     }
 }

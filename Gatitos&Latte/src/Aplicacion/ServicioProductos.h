@@ -11,13 +11,13 @@ public:
     void registrar(int codigo, std::string nombre, std::string categoria,
                    std::int64_t precioCentimos, bool disponible);
     [[nodiscard]] std::size_t cantidad() const noexcept;
-    [[nodiscard]] const dominio::Producto& productoEn(std::size_t indice) const;
-    [[nodiscard]] std::optional<dominio::Producto> buscarPorCodigo(int codigo) const;
+    [[nodiscard]] const entidades::Producto& productoEn(std::size_t indice) const;
+    [[nodiscard]] std::optional<entidades::Producto> buscarPorCodigo(int codigo) const;
 
     void ordenar(algoritmos::CriterioOrden criterio);
-    [[nodiscard]] std::optional<dominio::Producto> buscarBinaria(int codigo);
+    [[nodiscard]] std::optional<entidades::Producto> buscarBinaria(int codigo);
 
-    [[nodiscard]] std::optional<dominio::Producto> buscarEnArbol(int codigo) const;
+    [[nodiscard]] std::optional<entidades::Producto> buscarEnArbol(int codigo) const;
     [[nodiscard]] estructuras::ArregloProductos productosInorden() const;
 
 private:

@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <utility>
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 Pedido::Pedido(int numero, std::string cliente, const Producto& producto, int cantidad)
     : numero_(numero), cliente_(std::move(cliente)), producto_(producto),

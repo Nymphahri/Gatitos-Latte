@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Dominio/Pedido.h"
+#include "../Entidades/Pedido.h"
 #include <cstddef>
 
 namespace gatitos::estructuras
@@ -13,19 +13,19 @@ public:
     ColaPedidos(const ColaPedidos& otra);
     ColaPedidos& operator=(const ColaPedidos& otra);
 
-    void encolar(const dominio::Pedido& pedido);
+    void encolar(const entidades::Pedido& pedido);
     bool desencolar() noexcept;
-    [[nodiscard]] const dominio::Pedido* frente() const noexcept;
-    [[nodiscard]] const dominio::Pedido* final() const noexcept;
-    [[nodiscard]] const dominio::Pedido* buscar(int numero) const noexcept;
+    [[nodiscard]] const entidades::Pedido* frente() const noexcept;
+    [[nodiscard]] const entidades::Pedido* final() const noexcept;
+    [[nodiscard]] const entidades::Pedido* buscar(int numero) const noexcept;
     [[nodiscard]] std::size_t cantidad() const noexcept;
     [[nodiscard]] bool vacia() const noexcept;
 
 private:
     struct Nodo
     {
-        explicit Nodo(const dominio::Pedido& dato) : pedido(dato) {}
-        dominio::Pedido pedido;
+        explicit Nodo(const entidades::Pedido& dato) : pedido(dato) {}
+        entidades::Pedido pedido;
         Nodo* siguiente = nullptr;
     };
     Nodo* frente_ = nullptr;

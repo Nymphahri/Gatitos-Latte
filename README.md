@@ -63,7 +63,7 @@ miles; por ejemplo, `1800.50`. Los datos se pierden al cerrar el programa.
 |---|---|
 | `Gatitos&Latte/src/Presentacion` | Menú y lectura de datos. |
 | `Gatitos&Latte/src/Aplicacion` | Casos de uso de productos y pedidos. |
-| `Gatitos&Latte/src/Dominio` | Entidades y validaciones del negocio. |
+| `Gatitos&Latte/src/Entidades` | Entidades y validaciones del negocio. |
 | `Gatitos&Latte/src/Datos` | Almacenamiento y consultas. |
 | `Gatitos&Latte/src/Estructuras` | Estructuras de datos manuales. |
 | `Gatitos&Latte/src/Algoritmos` | Ordenamiento por inserción y búsqueda binaria. |

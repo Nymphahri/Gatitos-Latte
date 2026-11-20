@@ -14,14 +14,13 @@ public:
 private:
     void registrar();
     void listar() const;
-    void mostrarSiguiente() const;
+    void consultar();
     void buscar();
     void atender();
     void listarProcesados() const;
     void mostrarHistorial() const;
     void listarTodos() const;
     void eliminarProcesado();
-    void mostrar(const dominio::Pedido& pedido) const;
     aplicacion::ServicioPedidos& servicio_;
     EntradaConsola entrada_;
     std::ostream& salida_;

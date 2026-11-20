@@ -1,6 +1,6 @@
 #pragma once
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 enum class TipoOperacionPedido { Registro, Entrega, Eliminacion };
 

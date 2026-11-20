@@ -2,7 +2,7 @@
 
 #include "Producto.h"
 
-namespace gatitos::dominio
+namespace gatitos::entidades
 {
 enum class EstadoPedido { Pendiente, Entregado };
 

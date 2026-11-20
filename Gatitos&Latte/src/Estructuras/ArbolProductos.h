@@ -14,21 +14,21 @@ public:
     ArbolProductos(const ArbolProductos&) = delete;
     ArbolProductos& operator=(const ArbolProductos&) = delete;
 
-    void insertar(const dominio::Producto& producto);
-    void insertar(dominio::Producto&&) = delete; // No guardar referencias a temporales.
-    [[nodiscard]] const dominio::Producto* buscar(int codigo) const noexcept;
+    void insertar(const entidades::Producto& producto);
+    void insertar(entidades::Producto&&) = delete; // No guardar referencias a temporales.
+    [[nodiscard]] const entidades::Producto* buscar(int codigo) const noexcept;
     [[nodiscard]] ArregloProductos inorden() const;
 
 private:
     struct Nodo
     {
-        explicit Nodo(const dominio::Producto& dato) : producto(&dato) {}
-        const dominio::Producto* producto;
+        explicit Nodo(const entidades::Producto& dato) : producto(&dato) {}
+        const entidades::Producto* producto;
         Nodo* izquierdo = nullptr;
         Nodo* derecho = nullptr;
     };
 
-    static void insertarNodo(Nodo*& nodo, const dominio::Producto& producto);
+    static void insertarNodo(Nodo*& nodo, const entidades::Producto& producto);
     static void recorrerInorden(const Nodo* nodo, ArregloProductos& resultado);
     static void liberar(Nodo* nodo) noexcept;
     Nodo* raiz_ = nullptr;

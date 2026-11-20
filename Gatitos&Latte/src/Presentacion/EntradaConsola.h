@@ -12,7 +12,10 @@ namespace gatitos::presentacion
 class FinEntrada final : public std::exception
 {
 public:
-    const char* what() const noexcept override { return "Entrada cerrada."; }
+    const char* what() const noexcept override
+    {
+        return "Entrada cerrada.";
+    }
 };
 
 // Sin separadores de miles. Admite punto o coma y hasta dos decimales.
@@ -22,6 +25,7 @@ class EntradaConsola
 {
 public:
     EntradaConsola(std::istream& entrada, std::ostream& salida) noexcept;
+    void esperarEnter();
     int leerEntero(const char* mensaje, int minimo, int maximo);
     std::string leerTexto(const char* mensaje);
     std::int64_t leerPrecio(const char* mensaje);

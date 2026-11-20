@@ -30,7 +30,7 @@ ListaPedidos& ListaPedidos::operator=(const ListaPedidos& otra)
     return *this;
 }
 
-void ListaPedidos::agregar(const dominio::Pedido& pedido)
+void ListaPedidos::agregar(const entidades::Pedido& pedido)
 {
     Nodo* nuevo = new Nodo(pedido);
     if (ultimo_ != nullptr) { ultimo_->siguiente = nuevo; }
@@ -67,12 +67,12 @@ void ListaPedidos::limpiar() noexcept
     cantidad_ = 0;
 }
 
-const dominio::Pedido* ListaPedidos::primero() const noexcept
+const entidades::Pedido* ListaPedidos::primero() const noexcept
 {
     return primero_ != nullptr ? &primero_->pedido : nullptr;
 }
 
-const dominio::Pedido* ListaPedidos::buscar(int numero) const noexcept
+const entidades::Pedido* ListaPedidos::buscar(int numero) const noexcept
 {
     for (const Nodo* nodo = primero_; nodo != nullptr; nodo = nodo->siguiente) {
         if (nodo->pedido.numero() == numero) { return &nodo->pedido; }
